@@ -35,6 +35,8 @@ In next sections, we will focus:
 
 In this mode IPv4 traffic lookup is done via IP FIB and all non IPv4 traffic is directed to MAC FIB.
 
+It is worth mentioning that since we are on compute-4v-7.sdn.lab that is hosting vSRX-3, 10.0.0.3/32 has local tap-interface, while for instance 10.0.0.4/32 has tunneling via MPLSoUDP since being on another compute. Simiraly, 02:42:d3:0f:50:35 has local tap-interface while for instance 02:37:f4:6f:5f:cb has tunneling via MPLSoUDP since being on another compute
+
 ![Screenshot](img/virtual_networks/VR-L2L3-L3view.png)
 
 ![Screenshot](img/virtual_networks/VR-L2L3-L2view.png)
@@ -44,7 +46,7 @@ In this mode IPv4 traffic lookup is done via IP FIB and all non IPv4 traffic is 
 
 All traffic goes via MAC FIB lookup only.
 
-Below we can notice that the IP FIB is empty while the MAC FIB is populated. 
+Below we can notice that the IP FIB is empty while the MAC FIB is populated.
 
 ![Screenshot](img/virtual_networks/VR-L2-L3view.png)
 
