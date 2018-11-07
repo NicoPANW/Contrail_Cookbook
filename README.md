@@ -1,2 +1,2 @@
 # Contrail_Cookbook
-Describing, illustrating and explaning Contrail features
+Describing, illustrating and explaining Contrail features.
