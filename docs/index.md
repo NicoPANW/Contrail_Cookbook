@@ -4,12 +4,17 @@
 
 # Virtual Networks
 
+On below screenhoot, we can notice
+- Red VN having 3 VMs attached
+- We can understand on which compute the VM runs. Besides, they all run on different computes. 
 
 ![Screenshot](img/virtual_networks/VN-general.png)
 
-On above screenhoot, we can notice
-- 3 VMs
-- We can understand on which compute the VM runs
+The following screenshoots show for each VM the associated IP@ and Mac@
+![Screenshot](img/virtual_networks/vSRX_3-interface.png)
+![Screenshot](img/virtual_networks/vSRX_4-interface.png)
+![Screenshot](img/virtual_networks/vSRX_5-interface.png)
+
 
 ## Advanced Options
 
