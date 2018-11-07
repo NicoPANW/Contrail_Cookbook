@@ -45,7 +45,7 @@ It is worth mentioning that since we are on compute-4v-7.sdn.lab that is hosting
 
 In this mode, vRouter will act as proxy-ARP. He will answer with its own MAC@
 
-Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4. vRouter is answering back accordingly. Besides, on vif interface we can see the flag "L3L2".
+Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4. TBBBCCCCCCCC Besides, on vif interface we can see the flag "L3L2".
 
 ![Screenshot](img/virtual_networks/VR-L2L3-ping.png)
 
