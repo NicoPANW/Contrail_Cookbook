@@ -1,7 +1,15 @@
 
+
+
+
 # Virtual Networks
 
 
+![Screenshot](img/virtual_networks/VN-general.png)
+
+On above screenhoot, we can notice
+- 3 VMs
+- We can understand on which compute the VM runs
 
 ## Advanced Options
 
