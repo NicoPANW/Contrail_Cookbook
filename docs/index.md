@@ -56,7 +56,7 @@ Below we can notice that the IP FIB is empty while the MAC FIB is populated.
 
 All traffic goes via IP FIB lookup only.
 
-Below we can notice that the IP FIB is populated while the MAC FIB is populated. 
+Below we can notice that the IP FIB is populated while the MAC FIB is only having the local MAC@. 
 
 ![Screenshot](img/virtual_networks/VR-L3-L3view.png)
 
