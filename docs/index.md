@@ -12,7 +12,9 @@ On below screenhoot, we can notice
 
 The following screenshoots show for each VM the associated IP@ and Mac@
 ![Screenshot](img/virtual_networks/vSRX_3-interface.png)
+
 ![Screenshot](img/virtual_networks/vSRX_4-interface.png)
+
 ![Screenshot](img/virtual_networks/vSRX_5-interface.png)
 
 
