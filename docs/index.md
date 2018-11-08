@@ -65,7 +65,7 @@ In this mode IPv4 traffic lookup is done via IP FIB and all non IPv4 traffic is 
 
 This is the default option and should be used unless having a specific requirement.
 
-It is worth mentioning that since we are on compute-4v-7.sdn.lab that is hosting vSRX-3, 10.0.0.3/32 has local tap-interface, while for instance 10.0.0.4/32 has tunneling via MPLSoUDP since being on another compute. Simiraly, 02:42:d3:0f:50:35 has local tap-interface while for instance 02:37:f4:6f:5f:cb has tunneling via MPLSoUDP since being on another compute
+In below, it is worth mentioning that since we are on compute-4v-7.sdn.lab that is hosting vSRX-3, 10.0.0.3/32 has local tap-interface, while for instance 10.0.0.4/32 has tunneling via MPLSoUDP since being on another compute. Simiraly, 02:42:d3:0f:50:35 has local tap-interface while for instance 02:37:f4:6f:5f:cb has tunneling via MPLSoUDP since being on another compute
 
 ![Screenshot](img/virtual_networks/VR-L2L3-L3view.png)
 
@@ -78,7 +78,7 @@ Below screenshot shows on compute-4v-7.sdn.lab that vRouter has associated 10.0.
 
 ![Screenshot](img/virtual_networks/VR-L2L3-RTdump.png)
 
-Below vSRX_3 pings vSRX_4 (ARP table on vSRX_3 was cleared). We notice that vSRX_3 sends an ARP request for 10.0.0.4 and vRouter will answer the ARQ request thanks to mac@ known above. Besides, on vif interface we can see the flag "L3L2".
+Below vSRX_3 pings vSRX_4 (ARP table on vSRX_3 was cleared). We notice that vSRX_3 sends an ARP request for 10.0.0.4 and **vRouter** will answer the ARP request thanks to mac@ known above. Besides, on vif interface we can see the flag "L3L2".
 
 ![Screenshot](img/virtual_networks/VR-L2L3-ping.png)
 
@@ -88,7 +88,7 @@ _This is a corner case and most of the time the result of bad VNF implementation
 
 Here we have unconfigured DHCP on vSRX_5 and manually set IP@ 10.0.0.12/32. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this IP@ will be unknown.
 
-Below the mac@ of IP@ 10.0.0.12/32 is resolved, but ICMP packets are dropped (TBC WHY DROPPED). L2-only allows this scenario and this is shown later.
+Below the mac@ of IP@ 10.0.0.12/32 is resolved, but ICMP packets are dropped since unknown IP@. L2-only allows this scenario and this is shown later.
 
 ![Screenshot](img/virtual_networks/VR-L2L3-unkownIP.png)
 
