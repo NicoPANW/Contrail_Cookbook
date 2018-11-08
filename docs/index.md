@@ -88,9 +88,17 @@ _This is a corner case and most of the time the result of bad VNF implementation
 
 Here we have unconfigured DHCP on vSRX_5 and manually set IP@ 10.0.0.12/32. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this IP@ will be unknown.
 
-Below the mac@ of IP@ 10.0.0.12/32 is resolved, but ICMP packets are dropped since unknown IP@. L2-only allows this scenario and this is shown later.
+Below the mac@ of IP@ 10.0.0.12/32 is resolved, but ICMP packets are dropped since unknown IP@.
 
 ![Screenshot](img/virtual_networks/VR-L2L3-unkownIP.png)
+
+A workaround to make it work is to define the new IP@ via AAP on the vSRX_5 port.
+
+![Screenshot](img/virtual_networks/VR-L2L3-unkownIPAAP.png)
+
+![Screenshot](img/virtual_networks/VR-L2L3-unkownIPAAPtrace.png)
+
+_L2-only allows this scenario without extra AAP and this is shown later._ 
 
 
 
@@ -104,6 +112,14 @@ Below we see resolution of mac@ for 10.0.0.5, but since vRouter act as proxy, it
 
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmac.png)
+
+A workaround to make it work is to define the new mac@ via AAP on the vSRX_5 port.
+
+![Screenshot](img/virtual_networks/VR-L2L3-unkownmacAAP.png)
+
+![Screenshot](img/virtual_networks/VR-L2L3-unkownmacAAPtrace.png)
+
+_L2-only allows this scenario without extra AAP and this is shown later._ 
 
 #### L2 only
 
