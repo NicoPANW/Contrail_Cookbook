@@ -27,9 +27,15 @@ The following screenshoots show for each VM the associated IP@ and Mac@
 ### Forwarding Mode
 Contrail supports 3 forwarding modes: L2 and L3, L2 only and L3 only.
 
+This can be set on a per VN basis, see below.
+
+![Screenshot](img/virtual_networks/VR-L2L3-settings.png)
+
 In next sections, we will focus:
 - only on "Red" VN
 - from compute-4v-7.sdn.lab that is hosting vSRX-3
+
+Note: ARP processing is greatly detailed here: https://github.com/Juniper/contrail-controller/wiki/Contrail-VRouter-ARP-Processing 
 
 #### L2 and L3
 
