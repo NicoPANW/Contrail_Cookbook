@@ -13,7 +13,7 @@ On below screenhoot, we can notice
 The following screenshoots show for each VM the associated IP@ and Mac@
 - vSRX_3: 10.0.0.3 / 02:42:d3:0f:50:35
 - vSRX_4: 10.0.0.4 / 02:35:62:da:f5:b0
-- vSRX_4: 10.0.0.5 / 02:03:04:6d:19:c1
+- vSRX_5: 10.0.0.5 / 02:03:04:6d:19:c1
 
 ![Screenshot](img/virtual_networks/vSRX_3-interface.png)
 
@@ -72,14 +72,32 @@ It is worth mentioning that since we are on compute-4v-7.sdn.lab that is hosting
 ![Screenshot](img/virtual_networks/VR-L2L3-L2view.png)
 
 
+##### Known IP and mac@
 
-Below screenshot shows on compute-4v-7.sdn.lab that vRouter has associated 10.0.0.4 to 02:37:f4:6f:5f:cb. It has "P" in flag to say "proxy".
+Below screenshot shows on compute-4v-7.sdn.lab that vRouter has associated 10.0.0.4 to 02:37:f4:6f:5f:cb. It has "P" in flag to say "Proxy ARP".
 
 ![Screenshot](img/virtual_networks/VR-L2L3-RTdump.png)
 
 Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4 and vRouter will answer the ARQ request thanks to mac@ known above. Besides, on vif interface we can see the flag "L3L2".
 
 ![Screenshot](img/virtual_networks/VR-L2L3-ping.png)
+
+##### unknown IP
+
+_This is a corner case and most of the time the result of bad VNF implementation._ 
+
+Here we have unconfigured DHCP on vSRX_5 and manually set IP@ 10.0.0.12/32. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this IP@ will be unknown.
+
+Below the mac@ of IP@ 10.0.0.12/32 is resolved, but ICMP packets are dropped (TBC WHY DROPPED). L2-only allows this scenario and this is shown later.
+
+![Screenshot](img/virtual_networks/VR-L2L3-unkownIP.png)
+
+
+
+##### known IP but unknown Mac@
+
+_This is a corner case and most of the time the result of bad VNF implementation._ 
+
 
 #### L2 only
 
@@ -103,6 +121,22 @@ Below screenshot shows on compute-4v-7.sdn.lab that vRouter has no IP to Mac@ bi
 Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4 and vRouter broadcast the request. vSRX_4 is answering back accordingly. Besides, on vif interface we can see the flag "L2" and "F" to flood.
 
 ![Screenshot](img/virtual_networks/VR-L2-ping.png)
+
+##### unknown IP
+
+_This is a corner case and most of the time the result of bad VNF implementation._ 
+
+Here we have unconfigured DHCP on vSRX_5 and manually set IP@ 10.0.0.12/32. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this IP@ will be unknown.
+
+Below the mac@ of IP@ 10.0.0.12/32 is resolved and ICMP packets are going through. 
+
+![Screenshot](img/virtual_networks/VR-L2-unkownIP.png)
+
+
+
+##### known IP but unknown Mac@
+
+_This is a corner case and most of the time the result of bad VNF implementation._ 
 
 #### L3 only
 
