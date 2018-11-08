@@ -35,7 +35,27 @@ In next sections, we will focus:
 - only on "Red" VN
 - from compute-4v-7.sdn.lab that is hosting vSRX-3
 
-Note: ARP processing is greatly detailed here: https://github.com/Juniper/contrail-controller/wiki/Contrail-VRouter-ARP-Processing 
+ARP algo is as follow (from VM traffic to vRouter):
+
+    Do Inet route lookup for the IP Destination
+    If Route found for the IP Destination
+        If Proxy Flag set in the route
+            If MAC Stitching information present in the route
+                Send ARP Respone with the MAC present in stitching information
+            Else // MAC Stitching not found
+                If Flood Flag set in the route
+                    Flood the ARP packet
+                Else // PROXY set, No-Flood, No-MAC Stitching
+                    Send ARP response with VRouter MAC address
+        Else // Proxy Flag not set
+            If Flood flag set in the Route
+                Flood the ARP packet
+            Else // Proxy Not set, Flood not set
+                Drop the packet
+    Else // Route not found
+        Flood the ARP
+
+Note: ARP processing is greatly further detailed here: https://github.com/Juniper/contrail-controller/wiki/Contrail-VRouter-ARP-Processing 
 
 #### L2 and L3
 
@@ -49,9 +69,11 @@ It is worth mentioning that since we are on compute-4v-7.sdn.lab that is hosting
 
 ![Screenshot](img/virtual_networks/VR-L2L3-L2view.png)
 
-In this mode, vRouter will act as proxy-ARP. He will answer with its own MAC@
+In this mode, vRouter will act as proxy-ARP. As explained earlier on the ARP Algo, there are two subcases:
+- a) Neither vSRX_3 and vRouter know the MAC@ of vSRX4
+- b) vSRX_3 does not know the MAC@ of vSRX4, but vRouter knows it.
 
-Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4. TBBBCCCCCCCC Besides, on vif interface we can see the flag "L3L2".
+Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4. Besides, on vif interface we can see the flag "L3L2" and "P" for proxy.
 
 ![Screenshot](img/virtual_networks/VR-L2L3-ping.png)
 
@@ -63,15 +85,14 @@ This option is useful once we have non-IP traffic like legacy protocols in VNF.
 
 Below we can notice that the IP FIB is empty while the MAC FIB is populated.
 
-This 
 
 ![Screenshot](img/virtual_networks/VR-L2-L3view.png)
 
 ![Screenshot](img/virtual_networks/VR-L2-L2view.png)
 
-In this mode, vRouter will NOT answer ARP. 
+In this mode, vRouter will never answer ARP, it will flood ARP. 
 
-Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4. vSRX_4 is answering back accordingly. Besides, on vif interface we can see the flag "L2".
+Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4. vSRX_4 is answering back accordingly. Besides, on vif interface we can see the flag "L2" and "F" to flood.
 
 ![Screenshot](img/virtual_networks/VR-L2-ping.png)
 
