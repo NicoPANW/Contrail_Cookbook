@@ -96,7 +96,11 @@ Below we can notice that the IP FIB is empty while the MAC FIB is populated.
 
 In this mode, vRouter will never answer ARP, it will flood ARP. 
 
-Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4. vSRX_4 is answering back accordingly. Besides, on vif interface we can see the flag "L2" and "F" to flood.
+Below screenshot shows on compute-4v-7.sdn.lab that vRouter has no IP to Mac@ bindings. 
+
+![Screenshot](img/virtual_networks/VR-L2L3-RTdump.png)
+
+Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4 and vRouter broadcast the request. vSRX_4 is answering back accordingly. Besides, on vif interface we can see the flag "L2" and "F" to flood.
 
 ![Screenshot](img/virtual_networks/VR-L2-ping.png)
 
