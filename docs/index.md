@@ -82,7 +82,7 @@ Below vSRX_3 pings vSRX_4 (ARP table on vSRX_3 was cleared). We notice that vSRX
 
 ![Screenshot](img/virtual_networks/VR-L2L3-ping.png)
 
-##### unknown IP@
+##### Unknown IP@
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
@@ -102,7 +102,7 @@ _L2-only allows this scenario without extra AAP and this is shown later._
 
 
 
-##### known IP@ but unknown Mac@
+##### Known IP@ but unknown Mac@
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
@@ -140,11 +140,11 @@ Below screenshot shows on compute-4v-7.sdn.lab that vRouter has no IP to Mac@ bi
 
 ![Screenshot](img/virtual_networks/VR-L2L3-RTdump.png)
 
-Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4 and vRouter broadcast the request. vSRX_4 is answering back accordingly. Besides, on vif interface we can see the flag "L2" and "F" to flood.
+Below vSRX_3 pings vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4 and vRouter broadcast the request. vSRX_4 is answering back accordingly. Besides, on vif interface we can see the flag "L2" and "F" to flood.
 
 ![Screenshot](img/virtual_networks/VR-L2-ping.png)
 
-##### unknown IP@
+##### Unknown IP@
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
@@ -156,7 +156,7 @@ Below the mac@ of IP@ 10.0.0.12/32 is resolved and ICMP packets are going throug
 
 
 
-##### known IP@ but unknown Mac@
+##### Known IP@ but unknown Mac@
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
