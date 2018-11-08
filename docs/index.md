@@ -35,6 +35,8 @@ In next sections, we will focus:
 - only on "Red" VN
 - from compute-4v-7.sdn.lab that is hosting vSRX-3
 
+Contrail is "Configuration based Learning": configuration for a virtual-machine-interface contains both IP address and MAC address for the interface. For virtual-machines spawned on a compute node, the vrouter will learn IP to MAC address binding from the configuration (Contrail does not perform mac-learning). The MAC binding information is exported in EVPN Routes to the Control Node.
+
 ARP algo is as follow (from VM traffic to vRouter):
 
     Do Inet route lookup for the IP Destination
@@ -69,11 +71,13 @@ It is worth mentioning that since we are on compute-4v-7.sdn.lab that is hosting
 
 ![Screenshot](img/virtual_networks/VR-L2L3-L2view.png)
 
-In this mode, vRouter will act as proxy-ARP. As explained earlier on the ARP Algo, there are two subcases:
-- a) Neither vSRX_3 and vRouter know the MAC@ of vSRX4
-- b) vSRX_3 does not know the MAC@ of vSRX4, but vRouter knows it.
 
-Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4. Besides, on vif interface we can see the flag "L3L2" and "P" for proxy.
+
+Below screenshot shows on compute-4v-7.sdn.lab that vRouter has associated 10.0.0.4 to 02:37:f4:6f:5f:cb. It has "P" in flag to say "proxy".
+
+![Screenshot](img/virtual_networks/VR-L2L3-RTdump.png)
+
+Below vSRX_3 is pinging vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4 and vRouter will answer the ARQ request thanks to mac@ known above. Besides, on vif interface we can see the flag "L3L2".
 
 ![Screenshot](img/virtual_networks/VR-L2L3-ping.png)
 
