@@ -1,6 +1,6 @@
 
 
-
+_This Contrail_Cookbook has been written based on a Tungsten Fabric cluster, from early October trunk build._ 
 
 # Virtual Networks
 
@@ -183,5 +183,8 @@ Below we can notice that the IP FIB is populated while the MAC FIB is only havin
 ![Screenshot](img/virtual_networks/VR-L3-L2view.png)
 
 
+### Flood Unknown Unicast
+
+In Contrail, all mac@ are known from OpenStack and advertised via EVPN. There is no mac-learning. Therefore, by default Contrail  will drop unknown mac@. This knob allows in corner case situation to allow it, see example [here](https://github.com/NicoJNPR/Contrail_Cookbook/blob/master/docs/index.md#known-ip-but-unknown-mac-1)  
 
 
