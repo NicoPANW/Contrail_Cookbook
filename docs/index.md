@@ -125,7 +125,7 @@ _L2-only allows this scenario without extra AAP and this is shown later._
 
 All traffic goes via MAC FIB lookup only.
 
-_Note: This option is useful once we have non-IP traffic like legacy protocols in VNF (PXEboot, DHCP, etc.)._ 
+_Note: This option is useful once we have non-IP traffic like legacy protocols in VNF (PXEboot, DHCP request to another VM, etc.)._ 
 
 Below we can notice that the IP FIB is empty while the MAC FIB is populated.
 
