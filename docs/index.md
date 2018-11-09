@@ -1,6 +1,6 @@
 
 
-_This Contrail_Cookbook has been written based on a Tungsten Fabric cluster, from early October trunk build._ 
+_This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October trunk build and Openstack Queens._ 
 
 # Virtual Networks
 
