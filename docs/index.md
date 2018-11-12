@@ -197,7 +197,7 @@ Below it shows that the compute hosting vSRX_4 is not having any ssh trace. The 
 
 ![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-on.png)
 
-Below it shows that the compute hosting vSRX_4 is now having ssh trace, so it works.  
+Below, Reverse Path Forwarding is now disabled on VN red, it shows that the compute hosting vSRX_4 is now having ssh trace, so it works.  
 
 ![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-off.png)
 
