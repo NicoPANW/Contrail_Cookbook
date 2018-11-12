@@ -187,4 +187,21 @@ Below we can notice that the IP FIB is populated while the MAC FIB is only havin
 
 In Contrail, all mac@ are known from OpenStack and advertised via EVPN. There is no mac-learning. Therefore, by default Contrail  will drop unknown mac@. This knob allows in corner case situation to allow it, see example [here](https://github.com/NicoJNPR/Contrail_Cookbook/blob/master/docs/index.md#known-ip-but-unknown-mac-1)  
 
+### Reverse Path Forwarding
+
+By default, Contrail has "Reverse Path Forwarding" knob enables in the VN. It means that vRouter checks that the source has a valid IP@ in FIB.
+
+To demonstrate the feature, let's configure for instance a loopback 11.0.0.9/32 on vSRX_3. From vSRX_3 do ssh to vSRX_4 from this new loopback. 
+
+Below it shows that the compute hosting vSRX_4 is not having any ssh trace. The reason is that compute hosting vSRX_3 is dropping the packet since RPF is on. 
+
+![Screenshot](img/virtual_networks/VR-Reverse Path Forwarding-on.png)
+
+Below it shows that the compute hosting vSRX_4 is now having ssh trace, so it works.  
+
+![Screenshot](img/virtual_networks/VR-Reverse Path Forwarding-off.png)
+
+
+
+
 
