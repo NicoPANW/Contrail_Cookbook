@@ -201,7 +201,18 @@ Below, Reverse Path Forwarding is now disabled on VN red, it shows that the comp
 
 ![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-off.png)
 
+### Shared
 
+A VN is defined for a project. It means that another project will not see this VN. 
+However, sometimes it is desired that a VN is seen by all other projects (i.e. an Internet VN shared for all projects).
 
+Below, we have a new project "Other_tenant", and we can notice there is no VN. 
 
+![Screenshot](img/virtual_networks/VR-shared-off.png)
+
+Below, after we enable shared on Red VN in Contrail_Cookbook project, we can notice the Red VN is now visible in "Other_tenant" project.
+
+![Screenshot](img/virtual_networks/VR-shared-on.png)
+
+![Screenshot](img/virtual_networks/VR-shared-on-other.png)
 
