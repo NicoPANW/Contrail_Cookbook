@@ -195,11 +195,11 @@ To demonstrate the feature, let's configure for instance a loopback 11.0.0.9/32 
 
 Below it shows that the compute hosting vSRX_4 is not having any ssh trace. The reason is that compute hosting vSRX_3 is dropping the packet since RPF is on. 
 
-![Screenshot](img/virtual_networks/VR-Reverse Path Forwarding-on.png)
+![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-on.png)
 
 Below it shows that the compute hosting vSRX_4 is now having ssh trace, so it works.  
 
-![Screenshot](img/virtual_networks/VR-Reverse Path Forwarding-off.png)
+![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-off.png)
 
 
 
