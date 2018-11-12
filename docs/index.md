@@ -193,7 +193,7 @@ By default, Contrail has "Reverse Path Forwarding" knob enables in the VN. It me
 
 To demonstrate the feature, let's configure for instance a loopback 11.0.0.9/32 on vSRX_3. From vSRX_3 do ssh to vSRX_4 from this new loopback. 
 
-Below it shows that the compute hosting vSRX_4 is not having any ssh trace. The reason is that compute hosting vSRX_3 is dropping the packet since RPF is on. 
+Below, Reverse Path Forwarding is enabled on VN red, it shows that the compute hosting vSRX_4 is not having any ssh trace. The reason is that compute hosting vSRX_3 is dropping the packet since RPF is on. 
 
 ![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-on.png)
 
