@@ -1,6 +1,27 @@
 
 
-_This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October trunk build and Openstack Queens._ 
+_This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October trunk build and Openstack Queens._
+
+Table of Contents
+=================
+
+   * [Virtual Networks](#virtual-networks)
+      * [Advanced Options](#advanced-options)
+         * [Forwarding Mode](#forwarding-mode)
+            * [L2 and L3](#l2-and-l3)
+               * [Known IP@ and mac@](#known-ip-and-mac)
+               * [Unknown IP@](#unknown-ip)
+               * [Known IP@ but unknown Mac@](#known-ip-but-unknown-mac)
+            * [L2 only](#l2-only)
+               * [Unknown IP@](#unknown-ip-1)
+               * [Known IP@ but unknown Mac@](#known-ip-but-unknown-mac-1)
+            * [L3 only](#l3-only)
+         * [Flood Unknown Unicast](#flood-unknown-unicast)
+         * [Reverse Path Forwarding](#reverse-path-forwarding)
+         * [Shared](#shared)
+         * [IP Fabric Forwarding](#ip-fabric-forwarding)
+         * [PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains](#pbb-evpn-pbb-encapsulation-pbb-etree-layer2-control-word-mac-learning-bridge-domains)
+ 
 
 # Virtual Networks
 
@@ -233,7 +254,7 @@ Below shows that now Red VN routes are also present in the "Fabric" underlay rou
 ![Screenshot](img/virtual_networks/VR-IPFF-on-r1.png)
 ![Screenshot](img/virtual_networks/VR-IPFF-on-r2.png)
 
-Also, the Red VN now have a default route to underlay.
+Also, the Red VN now has a default route to underlay.
 
 ![Screenshot](img/virtual_networks/VR-IPFF-on-default.png)
 
