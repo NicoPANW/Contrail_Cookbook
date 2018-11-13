@@ -216,3 +216,23 @@ Below, after we enable shared on Red VN in Contrail_Cookbook project, we can not
 
 ![Screenshot](img/virtual_networks/VR-shared-on-other.png)
 
+### IP Fabric Forwarding
+
+
+### PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains
+
+For a very particular scenario, PBB EVPN has been developed on Contrail. 
+
+Specification is [here](https://github.com/Juniper/contrail-specs/blob/master/pbb_evpn.md).
+
+Below the UI knobs related to PBB EVPN (not explained).
+
+![Screenshot](img/virtual_networks/VR-PBB-1.png) 
+
+![Screenshot](img/virtual_networks/VR-PBB-2.png) 
+
+
+
+
+
+
