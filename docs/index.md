@@ -218,6 +218,22 @@ Below, after we enable shared on Red VN in Contrail_Cookbook project, we can not
 
 ### IP Fabric Forwarding
 
+This feature enables to connect a VN directly to the underlay (aka Fabric). It will leak the VN routes to the underlay routing instance. This is to allievate the need of an SDN GW, but at the cost of loosing the overlay benefits and with native MPLS integration with the backbone. 
+
+Below shows the "Fabric" underlay routing instances. We can notice prefix with 192.x.x.x but none with 10.x.x.x that we use in Red VN.
+
+![Screenshot](img/virtual_networks/VR-IPFF-no.png)
+
+Below shows how to enable "IP Fabric Forwarding".
+
+![Screenshot](img/virtual_networks/VR-IPFF-on.png)
+
+Below shows that now Red VN routes are also present in the "Fabric" underlay routing instance.
+
+![Screenshot](img/virtual_networks/VR-IPFF-on-r1.png)
+![Screenshot](img/virtual_networks/VR-IPFF-on-r2.png)
+
+
 
 ### PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains
 
