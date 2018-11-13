@@ -233,6 +233,14 @@ Below shows that now Red VN routes are also present in the "Fabric" underlay rou
 ![Screenshot](img/virtual_networks/VR-IPFF-on-r1.png)
 ![Screenshot](img/virtual_networks/VR-IPFF-on-r2.png)
 
+Also, the Red VN now have a default route to underlay.
+
+![Screenshot](img/virtual_networks/VR-IPFF-on-default.png)
+
+Below shows a ping from vSRX_4 10.0.0.4 to an underlay device having 192.168.100.151.
+
+
+
 
 
 ### PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains
