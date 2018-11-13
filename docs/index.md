@@ -21,7 +21,7 @@ Table of Contents
          * [Shared](#shared)
          * [IP Fabric Forwarding](#ip-fabric-forwarding)
          * [PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains](#pbb-evpn-pbb-encapsulation-pbb-etree-layer2-control-word-mac-learning-bridge-domains)
- 
+
 
 # Virtual Networks
 
@@ -210,7 +210,7 @@ In Contrail, all mac@ are known from OpenStack and advertised via EVPN. There is
 
 ### Reverse Path Forwarding
 
-By default, Contrail has "Reverse Path Forwarding" knob enables in the VN. It means that vRouter checks that the source has a valid IP@ in FIB.
+By default, Contrail has "Reverse Path Forwarding" knob enables in the VN. It means that vRouter checks that the source has a valid IP@ in FIB. Note that it only works for inter-subnet IP@, not intra-subnet IP@.
 
 To demonstrate the feature, let's configure for instance a loopback 11.0.0.9/32 on vSRX_3. From vSRX_3 do ssh to vSRX_4 from this new loopback. 
 
