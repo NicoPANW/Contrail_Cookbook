@@ -258,8 +258,15 @@ Also, the Red VN now has a default route to underlay.
 
 ![Screenshot](img/virtual_networks/VR-IPFF-on-default.png)
 
-Below shows a ping from vSRX_4 10.0.0.4 to an underlay device having 192.168.100.151.
+Finally, in order to make it work, we need to create a policy to allow traffic from Red VN to Fabric and apply it to Red VN network. 
 
+![Screenshot](img/virtual_networks/VR-IPFF-on-P.png)
+
+![Screenshot](img/virtual_networks/VR-IPFF-on-P2.png)
+
+Below shows a ping from vSRX_4 having 10.0.0.4 to an underlay device having 192.168.100.151. It is eth1 interface, so egressing straight to the underlay (there is no ICMP reply because no routes in underlay to 10.0.0.4)
+
+![Screenshot](img/virtual_networks/VR-IPFF-on-ping.png)
 
 
 
