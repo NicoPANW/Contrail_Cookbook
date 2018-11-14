@@ -5,25 +5,24 @@ _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tu
 Table of Contents
 =================
 
-   * [Virtual Networks](#virtual-networks)
-      * [Advanced Options](#advanced-options)
-         * [Forwarding Mode](#forwarding-mode)
-            * [L2 and L3](#l2-and-l3)
-               * [Known IP@ and mac@](#known-ip-and-mac)
-               * [Unknown IP@](#unknown-ip)
-               * [Known IP@ but unknown Mac@](#known-ip-but-unknown-mac)
-            * [L2 only](#l2-only)
-               * [Unknown IP@](#unknown-ip-1)
-               * [Known IP@ but unknown Mac@](#known-ip-but-unknown-mac-1)
-            * [L3 only](#l3-only)
-         * [Flood Unknown Unicast](#flood-unknown-unicast)
-         * [Reverse Path Forwarding](#reverse-path-forwarding)
-         * [Shared](#shared)
-         * [IP Fabric Forwarding](#ip-fabric-forwarding)
-         * [PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains](#pbb-evpn-pbb-encapsulation-pbb-etree-layer2-control-word-mac-learning-bridge-domains)
+   * [Configure](#configure)
+      * [Networking](#networking)
+         * [Networks (Virtual Networks)](#networks-virtual-networks)
+            * [Advanced Options](#advanced-options)
+                  * [Forwarding Mode](#forwarding-mode)
+                  * [Flood Unknown Unicast](#flood-unknown-unicast)
+                  * [Reverse Path Forwarding](#reverse-path-forwarding)
+                  * [Shared](#shared)
+                  * [IP Fabric Forwarding](#ip-fabric-forwarding)
+                  * [Allow transit](#allow-transit)
+                  * [PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains](#pbb-evpn-pbb-encapsulation-pbb-etree-layer2-control-word-mac-learning-bridge-domains)
 
 
-# Virtual Networks
+# Configure
+
+## Networking
+
+### Networks (Virtual Networks)
 
 On below screenhoot, we can notice
 - Red VN having 3 VMs attached: vSRX_3, vSRX_4 and vSRX_5
@@ -43,9 +42,9 @@ The following screenshoots show for each VM the associated IP@ and Mac@
 ![Screenshot](img/virtual_networks/vSRX_5-interface.png)
 
 
-## Advanced Options
+#### Advanced Options
 
-### Forwarding Mode
+###### Forwarding Mode
 Contrail supports 3 forwarding modes: L2 and L3, L2 only and L3 only.
 
 This can be set on a per VN basis, see below.
@@ -80,7 +79,7 @@ VRouter behavior on receiving an ARP Request (from VM to vRouter):
 
 _Note: ARP processing is greatly further detailed here: https://github.com/Juniper/contrail-controller/wiki/Contrail-VRouter-ARP-Processing_ 
 
-#### L2 and L3
+######## L2 and L3
 
 In this mode IPv4 traffic lookup is done via IP FIB and all non IPv4 traffic is directed to MAC FIB.
 
@@ -93,7 +92,7 @@ In below, it is worth mentioning that since we are on compute-4v-7.sdn.lab that 
 ![Screenshot](img/virtual_networks/VR-L2L3-L2view.png)
 
 
-##### Known IP@ and mac@
+########## Known IP@ and mac@
 
 Below screenshot shows on compute-4v-7.sdn.lab that vRouter has associated 10.0.0.4 to 02:37:f4:6f:5f:cb. It has "P" in flag to say "Proxy ARP".
 
@@ -103,7 +102,7 @@ Below vSRX_3 pings vSRX_4 (ARP table on vSRX_3 was cleared). We notice that vSRX
 
 ![Screenshot](img/virtual_networks/VR-L2L3-ping.png)
 
-##### Unknown IP@
+########## Unknown IP@
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
@@ -123,7 +122,7 @@ _L2-only allows this scenario without extra AAP and this is shown later._
 
 
 
-##### Known IP@ but unknown Mac@
+########## Known IP@ but unknown Mac@
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
@@ -142,7 +141,7 @@ A workaround to make it work is to define the new mac@ via AAP on the vSRX_5 por
 
 _L2-only allows this scenario without extra AAP and this is shown later._ 
 
-#### L2 only
+######## L2 only
 
 All traffic goes via MAC FIB lookup only.
 
@@ -165,7 +164,7 @@ Below vSRX_3 pings vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_
 
 ![Screenshot](img/virtual_networks/VR-L2-ping.png)
 
-##### Unknown IP@
+########## Unknown IP@
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
@@ -177,7 +176,7 @@ Below the mac@ of IP@ 10.0.0.12/32 is resolved and ICMP packets are going throug
 
 
 
-##### Known IP@ but unknown Mac@
+########## Known IP@ but unknown Mac@
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
@@ -193,7 +192,7 @@ In order to make it work, need to add in the VN the knob "Flood Unknown Unicast"
 ![Screenshot](img/virtual_networks/VR-L2-unknownmacwithflood.png)
 
 
-#### L3 only
+######## L3 only
 
 All traffic goes via IP FIB lookup only.
 
@@ -204,11 +203,11 @@ Below we can notice that the IP FIB is populated while the MAC FIB is only havin
 ![Screenshot](img/virtual_networks/VR-L3-L2view.png)
 
 
-### Flood Unknown Unicast
+###### Flood Unknown Unicast
 
-In Contrail, all mac@ are known from OpenStack and advertised via EVPN. There is no mac-learning. Therefore, by default Contrail  will drop unknown mac@. This knob allows in corner case situation to allow it, see example [here](https://github.com/NicoJNPR/Contrail_Cookbook/blob/master/docs/index.md#known-ip-but-unknown-mac-1)  
+In Contrail, all mac@ are known from OpenStack and advertised via EVPN. There is no mac-learning. Therefore, by default Contrail  will drop unknown mac@. This knob allows in corner case situation to allow it, see example [here](https://github.com/NicoJNPR/Contrail_Cookbook/blob/master/docs/index.md##known-ip-but-unknown-mac-1)  
 
-### Reverse Path Forwarding
+###### Reverse Path Forwarding
 
 By default, Contrail has "Reverse Path Forwarding" knob enables in the VN. It means that vRouter checks that the source has a valid IP@ in FIB. Note that it only works for inter-subnet IP@, not intra-subnet IP@.
 
@@ -222,7 +221,7 @@ Below, Reverse Path Forwarding is now disabled on VN red, it shows that the comp
 
 ![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-off.png)
 
-### Shared
+###### Shared
 
 A VN is defined for a project. It means that another project will not see this VN. 
 However, sometimes it is desired that a VN is seen by all other projects (i.e. an Internet VN shared for all projects).
@@ -237,7 +236,7 @@ Below, after we enable shared on Red VN in Contrail_Cookbook project, we can not
 
 ![Screenshot](img/virtual_networks/VR-shared-on-other.png)
 
-### IP Fabric Forwarding
+###### IP Fabric Forwarding
 
 This feature enables to connect a VN directly to the underlay (aka Fabric). It will leak the VN routes to the underlay routing instance. This is to allievate the need of an SDN GW, but at the cost of loosing the overlay benefits and with native MPLS integration with the backbone. 
 
@@ -269,9 +268,16 @@ Below shows a ping from vSRX_4 having 10.0.0.4 to an underlay device having 192.
 ![Screenshot](img/virtual_networks/VR-IPFF-on-ping.png)
 
 
+###### Allow transit
+
+Allow transit enables to readvertise service-chain routes from a VN to another service-chain. 
+
+The use case is VNLeft----SI1----VNmiddle-----SI2-----VNRight
+
+So routes from VNRight will by default be readvertised to VNmiddle as per service-chaining. However, they won't be readvertised to VNleft. However, if we enable "allow transit" on VNmiddle, they will be.
 
 
-### PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains
+###### PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains
 
 For a very particular scenario, PBB EVPN has been developed on Contrail. 
 
