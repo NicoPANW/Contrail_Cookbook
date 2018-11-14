@@ -3,7 +3,9 @@
 _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October trunk build and Openstack Queens._
 
 
-   * [Table of Contents](#table-of-contents)
+Table of Contents
+=================
+
    * [Networking](#networking)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
          * [Host routes](#host-routes)
@@ -25,6 +27,8 @@ _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tu
             * [Extend to Physical Router(s)](#extend-to-physical-routers)
             * [PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains](#pbb-evpn-pbb-encapsulation-pbb-etree-layer2-control-word-mac-learning-bridge-domains)
          * [DNS Server(s)](#dns-servers)
+         * [Route Target(s)](#route-targets)
+
 
 # Networking
 
@@ -348,6 +352,9 @@ Below it shows how to add a specific RT (in addition to the Contrail auto-genera
 ![Screenshot](img/virtual_networks/VR-RT-set.png) 
 
 ![Screenshot](img/virtual_networks/VR-RT-result.png) 
+
+### Export Route Target(s) and Import Route Target(s)
+
 
 
 
