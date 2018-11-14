@@ -45,6 +45,13 @@ The following screenshoots show for each VM the associated IP@ and Mac@
 
 ![Screenshot](img/virtual_networks/vSRX_5-interface.png)
 
+### Host routes
+
+“Host Route” is a way to pass a route to the VM. It is passed via vRouter DHCP offer to the VM, and therefore is installed into the VM routing table. However, Host routes are not visible into Contrail routing tables.
+
+![Screenshot](img/virtual_networks/VR-hostroutes-on.png)
+
+![Screenshot](img/virtual_networks/VR-hostroutes-on1.png)
 
 ### Advanced Options
 
@@ -274,7 +281,7 @@ Below shows a ping from vSRX_4 having 10.0.0.4 to an underlay device having 192.
 
 #### Allow transit
 
-Allow transit enables to readvertise service-chain routes from a VN to another service-chain. 
+Allow transit enables to readvertise service-chain routes from a VN to another service-chain. Note that a VN cannot be connected directly to a transit VN.
 
 The use case is VNLeft----SI1----VNmiddle-----SI2-----VNRight. This assumes being familiar with Contrail service-chaining (ST, SI, ploicy, etc.). 
 
