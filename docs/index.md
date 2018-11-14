@@ -339,13 +339,13 @@ Below we are setting for Red VN 8.8.8.8 as DNS IP@. Then we connect on a Cirros 
 
 This option allows to specify a specific RT for a VN. No that Contrail automatically set a RT for a VN. 
 
-Below it shows the Red VN with its RT auto set by Contrail. 
+Below it shows a route from Red VN with its RT auto set by Contrail. 
 
-![Screenshot](img/virtual_networks/VR-RT-default.png) 
+![Screenshot](img/virtual_networks/VR-RT-Default.png) 
 
 Below it shows how to add a specific RT (in addition to the Contrail auto-generated one) and the result.
 
-![Screenshot](img/virtual_networks/VR-RT-on.png) 
+![Screenshot](img/virtual_networks/VR-RT-set.png) 
 
 ![Screenshot](img/virtual_networks/VR-RT-result.png) 
 
