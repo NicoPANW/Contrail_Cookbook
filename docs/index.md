@@ -5,9 +5,9 @@ _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tu
 Table of Contents
 =================
 
-   * [Configure](#configure)
-      * [Networking](#networking)
-         * [Networks (Virtual Networks)](#networks-virtual-networks)
+   * [Table of Contents](#table-of-contents)
+   * [Networking](#networking)
+      * [Networks (Virtual Networks)](#networks-virtual-networks)
             * [Advanced Options](#advanced-options)
                   * [Forwarding Mode](#forwarding-mode)
                   * [Flood Unknown Unicast](#flood-unknown-unicast)
@@ -17,12 +17,9 @@ Table of Contents
                   * [Allow transit](#allow-transit)
                   * [PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains](#pbb-evpn-pbb-encapsulation-pbb-etree-layer2-control-word-mac-learning-bridge-domains)
 
+# Networking
 
-# Configure
-
-## Networking
-
-### Networks (Virtual Networks)
+## Networks (Virtual Networks)
 
 On below screenhoot, we can notice
 - Red VN having 3 VMs attached: vSRX_3, vSRX_4 and vSRX_5
