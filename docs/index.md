@@ -329,6 +329,8 @@ Below the UI knobs related to PBB EVPN (not explained).
 
 It is to pass DNS IP@ to the VMs via DHCP for a given VN. 
 
+Below we are setting for Red VN 8.8.8.8 as DNS IP@. Then we connect on a Cirros image to show that it is applied.
+
 ![Screenshot](img/virtual_networks/VR-DNS-on.png) 
 
 ![Screenshot](img/virtual_networks/VR-DNS-result.png) 
