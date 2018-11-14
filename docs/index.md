@@ -2,11 +2,11 @@
 
 _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October trunk build and Openstack Queens._
 
-Table of Contents
-=================
 
+   * [Table of Contents](#table-of-contents)
    * [Networking](#networking)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
+         * [Host routes](#host-routes)
          * [Advanced Options](#advanced-options)
             * [Forwarding Mode](#forwarding-mode)
                * [L2 and L3](#l2-and-l3)
@@ -22,7 +22,9 @@ Table of Contents
             * [Shared](#shared)
             * [IP Fabric Forwarding](#ip-fabric-forwarding)
             * [Allow transit](#allow-transit)
+            * [Extend to Physical Router(s)](#extend-to-physical-routers)
             * [PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains](#pbb-evpn-pbb-encapsulation-pbb-etree-layer2-control-word-mac-learning-bridge-domains)
+         * [DNS Server(s)](#dns-servers)
 
 # Networking
 
@@ -47,7 +49,7 @@ The following screenshoots show for each VM the associated IP@ and Mac@
 
 ### Host routes
 
-“Host Route” is a way to pass a route to the VM. It is passed via vRouter DHCP offer to the VM, and therefore is installed into the VM routing table. However, Host routes are not visible into Contrail routing tables. 
+“Host Route” is a way to pass a route to the VM. It is passed via vRouter DHCP offer to the VM, and therefore it is installed into the VM routing table. However, Host routes are not visible into Contrail routing tables. 
 
 Below how to configure it and then result on a Cirros VM.
 
@@ -303,6 +305,13 @@ However, if we enable "allow transit" on VNmiddle, VNRight routes in VNmiddle wi
 
 ![Screenshot](img/virtual_networks/VR-Allow-transit-on2.png)
 
+
+#### Extend to Physical Router(s)
+
+It is relevant only if Device-Manager is used. In such a case, it enables to automatically push necessary information to extend the VN to the MX SDN GW.
+
+
+
 #### PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains
 
 For a very particular scenario, PBB EVPN has been developed on Contrail. 
@@ -316,7 +325,13 @@ Below the UI knobs related to PBB EVPN (not explained).
 ![Screenshot](img/virtual_networks/VR-PBB-2.png) 
 
 
+### DNS Server(s)
 
+It is to pass DNS IP@ to the VMs via DHCP for a given VN. 
+
+![Screenshot](img/virtual_networks/VR-DNS-on.png) 
+
+![Screenshot](img/virtual_networks/VR-DNS-result.png) 
 
 
 
