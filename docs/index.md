@@ -47,7 +47,9 @@ The following screenshoots show for each VM the associated IP@ and Mac@
 
 ### Host routes
 
-“Host Route” is a way to pass a route to the VM. It is passed via vRouter DHCP offer to the VM, and therefore is installed into the VM routing table. However, Host routes are not visible into Contrail routing tables.
+“Host Route” is a way to pass a route to the VM. It is passed via vRouter DHCP offer to the VM, and therefore is installed into the VM routing table. However, Host routes are not visible into Contrail routing tables. 
+
+Below how to configure it and then result on a Cirros VM.
 
 ![Screenshot](img/virtual_networks/VR-hostroutes-on.png)
 
