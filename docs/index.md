@@ -276,10 +276,23 @@ Below shows a ping from vSRX_4 having 10.0.0.4 to an underlay device having 192.
 
 Allow transit enables to readvertise service-chain routes from a VN to another service-chain. 
 
-The use case is VNLeft----SI1----VNmiddle-----SI2-----VNRight
+The use case is VNLeft----SI1----VNmiddle-----SI2-----VNRight. This assumes being familiar with Contrail service-chaining (ST, SI, ploicy, etc.). 
 
-So routes from VNRight will by default be readvertised to VNmiddle as per service-chaining. However, they won't be readvertised to VNleft. However, if we enable "allow transit" on VNmiddle, they will be.
+![Screenshot](img/virtual_networks/VR-Allow-transit-netwoks.png)
 
+So routes from VNRight will by default be readvertised to VNmiddle as per service-chaining. However, they won't be readvertised to VNleft, see below.
+
+![Screenshot](img/virtual_networks/VR-Allow-transit-no1.png)
+
+![Screenshot](img/virtual_networks/VR-Allow-transit-no2.png)
+
+However, if we enable "allow transit" on VNmiddle, VNRight routes in VNmiddle will be readvertised to VNLeft (and vice-versa from Left to Right). 
+
+![Screenshot](img/virtual_networks/VR-Allow-transit-on.png)
+
+![Screenshot](img/virtual_networks/VR-Allow-transit-on1.png)
+
+![Screenshot](img/virtual_networks/VR-Allow-transit-on2.png)
 
 #### PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains
 
