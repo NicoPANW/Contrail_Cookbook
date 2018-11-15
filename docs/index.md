@@ -2,7 +2,7 @@
 
 _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October trunk build and Openstack Queens._
 
-_screenshots are in PNG format, so a bit heavy and resulting taking some time to load, but best quality_
+_Screenshots are in PNG format, so a bit heavy and resulting taking some time to load, but best quality._
 
 
 Table of Contents
