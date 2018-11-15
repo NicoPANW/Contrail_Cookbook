@@ -34,7 +34,8 @@ Table of Contents
 
 ## Networks (Virtual Networks)
 
-On below screenhoot, we can notice
+In order to explain the Virtual Networks and all associated knobs, a Red VN with VMs have been created. 
+
 - Red VN having 3 VMs attached: vSRX_3, vSRX_4 and vSRX_5
 - We can understand on which compute the VM runs. Besides, they all run on different computes. 
 
@@ -50,6 +51,14 @@ The following screenshoots show for each VM the associated IP@ and Mac@
 ![Screenshot](img/virtual_networks/vSRX_4-interface.png)
 
 ![Screenshot](img/virtual_networks/vSRX_5-interface.png)
+
+### Network Policy(s)
+
+This option allows to tie a Network Policy to a given VN (a Network Policy must ahve been defined before). 
+
+![Screenshot](img/virtual_networks/VR-NP.png)
+
+
 
 ### Host routes
 
@@ -366,6 +375,17 @@ Below it shows how to add a asymmetric RT (in addition to the Contrail auto-gene
 ![Screenshot](img/virtual_networks/VR-RT-ie-set.png) 
 
 ![Screenshot](img/virtual_networks/VR-RT-ie-resultintro.png) 
+
+### Import Policy
+
+An import policy allows to refer to a routing policy. Basically, it enables to manipulate routes into the VN (add/remove community, LP, MED, reject, etc.). If the VN is extended to an SDN GW, it will inherit the manipulation (meaning an LP set on a route in a VN, it will get this particular LP into the VRF of the SDN GW).  
+
+_Routing Policy are further described in relevant section._ 
+
+### Fat flows
+
+TBC
+
 
 
 
