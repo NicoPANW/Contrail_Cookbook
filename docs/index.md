@@ -6,8 +6,10 @@ _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tu
 Table of Contents
 =================
 
+   * [Table of Contents](#table-of-contents)
    * [Networking](#networking)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
+         * [Network Policy(s)](#network-policys)
          * [Host routes](#host-routes)
          * [Advanced Options](#advanced-options)
             * [Forwarding Mode](#forwarding-mode)
@@ -28,6 +30,9 @@ Table of Contents
             * [PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains](#pbb-evpn-pbb-encapsulation-pbb-etree-layer2-control-word-mac-learning-bridge-domains)
          * [DNS Server(s)](#dns-servers)
          * [Route Target(s)](#route-targets)
+         * [Export Route Target(s) and Import Route Target(s)](#export-route-targets-and-import-route-targets)
+         * [Import Policy](#import-policy)
+         * [Fat flows](#fat-flows)
 
 
 # Networking
@@ -356,7 +361,7 @@ Below we are setting for Red VN 8.8.8.8 as DNS IP@. Then we connect on a Cirros 
 
 This option allows to specify a specific RT for a VN. No that Contrail automatically set a RT for a VN. 
 
-Below it shows a route from Red VN with its RT auto set by Contrail. 
+Below it shows Red VN with its RT auto set by Contrail. 
 
 ![Screenshot](img/virtual_networks/VR-RT-Default.png) 
 
