@@ -217,6 +217,8 @@ Below we see resolution of mac@ for 10.0.0.5 with 02:8c:4d:c0:00:01. However onl
 
 In order to make it work, need to add in the VN the knob "Flood Unknown Unicast".
 
+![Screenshot](img/virtual_networks/VR-L2-unknownmacwithset.png)
+
 ![Screenshot](img/virtual_networks/VR-L2-unknownmacwithflood.png)
 
 
@@ -246,6 +248,8 @@ Below, Reverse Path Forwarding is enabled on VN red, it shows that the compute h
 ![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-on.png)
 
 Below, Reverse Path Forwarding is now disabled on VN red, it shows that the compute hosting vSRX_4 is now having ssh trace, so it works.  
+
+![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-off1.png)
 
 ![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-off.png)
 
