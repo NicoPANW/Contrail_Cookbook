@@ -73,7 +73,7 @@ Below how to configure it and then result on a Cirros VM.
 ### Advanced Options
 
 #### Forwarding Mode
-Contrail supports 3 forwarding modes: L2 and L3, L2 only and L3 only.
+Contrail supports 3 forwarding modes: L2 and L3, L2 only and L3 only. Note that default option means L2 and L3.
 
 This can be set on a per VN basis, see below.
 
@@ -186,9 +186,9 @@ In this mode, vRouter will never answer ARP, it will flood ARP.
 
 Below screenshot shows on compute-4v-7.sdn.lab that vRouter has no IP to Mac@ bindings. 
 
-![Screenshot](img/virtual_networks/VR-L2L3-RTdump.png)
+![Screenshot](img/virtual_networks/VR-L2-RTdump.png)
 
-Below vSRX_3 pings vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4 and vRouter broadcast the request. vSRX_4 is answering back accordingly. Besides, on vif interface we can see the flag "L2" and "F" to flood.
+Below vSRX_3 pings vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_3 sends an ARP request for 10.0.0.4 and vRouter broadcast the request. vSRX_4 is answering back accordingly. Besides, on vif interface we can see the flag "L2".
 
 ![Screenshot](img/virtual_networks/VR-L2-ping.png)
 
