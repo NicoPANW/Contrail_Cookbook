@@ -1,6 +1,6 @@
 
 
-_This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October trunk build and Openstack Queens._
+_This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October 2018 trunk build (post 5.0.1) and Openstack Queens._
 
 _Screenshots are in PNG format, so a bit heavy and resulting taking some time to load, but best quality._
 
@@ -348,11 +348,15 @@ However, if we enable "allow transit" on VNmiddle, VNRight routes in VNmiddle wi
 
 #### Extend to Physical Router(s)
 
-It is relevant only if Device-Manager is used. In such a case, it enables to automatically push necessary information to extend the VN to the MX SDN GW.
+It is relevant only if Device-Manager is used. In such a case, if it is enabled, it pushes Junos config to MX to extend the VN to the MX SDN GW (RT, policies, etc.).
+
+![Screenshot](img/virtual_networks/VR-extend.png)
 
 #### External
 
-TBC
+It is relevant only if Device-Manager is used. In such a case, if it is enabled, it pushes Junos config to MX with adding a default route to make it "public". 
+
+![Screenshot](img/virtual_networks/VR-external.png)
 
 #### SNAT
 
