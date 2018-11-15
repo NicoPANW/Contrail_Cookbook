@@ -71,13 +71,13 @@ Each VN has a subnet. This subnet could be defined in multiple ways for the Allo
 
 The most common way is "User Defined" as below. It means that the user defines himself the subnet, as below. 
 
-IPAM = select an IPAM, it has to be pre-defined before. 
-CIDR = CIDR type of prefix.
-Allocation pools = can be blank or specify a start & end address. 
-Gateway = GW IP@ will auto-populated by Contrail with x.x.x.1 address or could be manually specified. 
-Service Address = used for metadata service (vRouter DHCP and DNS messages to VM)
-DNS = enable DNS to provide DNS parameters that were specified in IPAM. If nothing specified, the service address of the subnet is used as the DNS server.
-DHCP = enable DHCP in the VN to provide IP@ to VMs along other DHCP options, so vRouter traps DHCP message coming from VM. If DHCP is disabled in the subnet, the broadcast DHCP requests will be flooded in the VN. 
+* IPAM = select an IPAM, it has to be pre-defined before. 
+* CIDR = CIDR type of prefix.
+* Allocation pools = can be blank (first address will be .3) or specify a start & end address. 
+* Gateway = GW IP@ will auto-populated by Contrail with x.x.x.1 address or could be manually specified. 
+* Service Address = used for metadata service (vRouter DHCP and DNS messages to VM) with x.x.x.2 address by default or could be manually specified. 
+* DNS = enable DNS to provide DNS parameters that were specified in IPAM. If nothing specified, the service address of the subnet is used as the DNS server.
+* DHCP = enable DHCP in the VN to provide IP@ to VMs along other DHCP options, so vRouter traps DHCP message coming from VM. If DHCP is disabled in the subnet, the broadcast DHCP requests will be flooded in the VN. 
 
 ![Screenshot](img/virtual_networks/VR-subnet-user-defined.png)
 
