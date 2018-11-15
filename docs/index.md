@@ -6,7 +6,6 @@ _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tu
 Table of Contents
 =================
 
-   * [Table of Contents](#table-of-contents)
    * [Networking](#networking)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
          * [Network Policy(s)](#network-policys)
@@ -359,7 +358,7 @@ Below we are setting for Red VN 8.8.8.8 as DNS IP@. Then we connect on a Cirros 
 
 ### Route Target(s)
 
-This option allows to specify a specific RT for a VN. No that Contrail automatically set a RT for a VN. 
+This option allows to specify a specific RT for a VN. Note that Contrail automatically set a RT for a VN. 
 
 Below it shows Red VN with its RT auto set by Contrail. 
 
