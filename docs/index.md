@@ -351,9 +351,21 @@ Below it shows how to add a specific RT (in addition to the Contrail auto-genera
 
 ![Screenshot](img/virtual_networks/VR-RT-set.png) 
 
+![Screenshot](img/virtual_networks/VR-RT-resultintro.png) 
+
+We can also look a given route in Red VN to notice the RT (only export)
+
 ![Screenshot](img/virtual_networks/VR-RT-result.png) 
 
 ### Export Route Target(s) and Import Route Target(s)
+
+Unlikeprevious feature that easily make symmetric RT and which is a common use case, we can have asymmetric RTs for a VN.
+
+Below it shows how to add a asymmetric RT (in addition to the Contrail auto-generated one) and the result.
+
+![Screenshot](img/virtual_networks/VR-RT-ie-set.png) 
+
+![Screenshot](img/virtual_networks/VR-RT-ie-resultintro.png) 
 
 
 
