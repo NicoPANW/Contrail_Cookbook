@@ -69,7 +69,15 @@ This option allows to tie a Network Policy to a given VN (a Network Policy must 
 
 Each VN has a subnet. This subnet could be defined in multiple ways for the Allocation Mode. 
 
-The most common way is "User Defined" as below. It means that the user defines himself the subnet. It is worth mentioning that by default, the GW IP@ will autopupluated by Contrail with x.x.x.1 address or could be manually specified. 
+The most common way is "User Defined" as below. It means that the user defines himself the subnet, as below. 
+
+IPAM = select an IPAM, it has to be pre-defined before. 
+CIDR = CIDR type of prefix.
+Allocation pools = can be blank or specify a start address. 
+Gateway = GW IP@ will auto-populated by Contrail with x.x.x.1 address or could be manually specified. 
+Service Address = used for metadata
+DNS = enable DNS to provide DNS parameters that were specified in IPAM
+DHCP = enable DHCP in the VN to provide IP@ to VMs
 
 ![Screenshot](img/virtual_networks/VR-subnet-user-defined.png)
 
@@ -342,7 +350,41 @@ However, if we enable "allow transit" on VNmiddle, VNRight routes in VNmiddle wi
 
 It is relevant only if Device-Manager is used. In such a case, it enables to automatically push necessary information to extend the VN to the MX SDN GW.
 
+#### External
 
+TBC
+
+#### SNAT
+
+TBC
+
+#### Mirroring
+
+TBC
+
+#### Multiple Service Chains
+
+TBC
+
+#### Static Route(s)
+
+TBC
+
+#### ECMP Hashing Fields
+
+TBC
+
+#### Security Logging Object(s)
+
+TBC
+
+#### QoS
+
+TBC
+
+#### Provider Network
+
+TBC
 
 #### PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains
 
