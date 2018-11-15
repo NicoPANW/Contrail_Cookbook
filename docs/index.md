@@ -2,6 +2,8 @@
 
 _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October trunk build and Openstack Queens._
 
+_screenshots are in PNG format, so a bit heavy and resulting taking some time to load, but best quality_
+
 
 Table of Contents
 =================
@@ -58,9 +60,18 @@ The following screenshoots show for each VM the associated IP@ and Mac@
 
 ### Network Policy(s)
 
-This option allows to tie a Network Policy to a given VN (a Network Policy must ahve been defined before). 
+This option allows to tie a Network Policy to a given VN (a Network Policy must have been defined before). 
 
 ![Screenshot](img/virtual_networks/VR-NP.png)
+
+
+### Subnets
+
+Each VN has a subnet. This subnet could be defined in multiple ways for the Allocation Mode. 
+
+The most common way is "User Defined" as below. It means that the user defines himself the subnet. It is worth mentioning that by default, the GW IP@ will autopupluated by Contrail with x.x.x.1 address or could be manually specified. 
+
+![Screenshot](img/virtual_networks/VR-subnet-user-defined.png)
 
 
 
