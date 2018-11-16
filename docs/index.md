@@ -517,7 +517,13 @@ For illustration purpose, we will also show the results on an MX SDN GW that alr
 
 The following policy has been defined. 
 
+![Screenshot](img/routing/Routing-RP-policy.png) 
+
+![Screenshot](img/routing/Routing-RP-policy1.png) 
+
 It is then applied to Red VN.
+
+![Screenshot](img/routing/Routing-RP-policy-set.png) 
 
 Below it shows 10.0.0.4 routes to illustrate the xmpp manipulation.
 
