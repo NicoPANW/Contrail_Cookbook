@@ -468,7 +468,7 @@ Then we need to apply it to the Red VN.
 
 ![Screenshot](img/routing/Routing-Network-Route-Tables-set1.png) 
 
-Below is the CN point of view for the 9.9.9.9/32 routes. The 192.168.100.163 netx-hop is the vRouter address hosting vSRX_4.
+Below is the CN point of view for the 9.9.9.9/32 routes. The 192.168.100.163 next-hop is the vRouter address hosting vSRX_4.
 
 ![Screenshot](img/routing/Routing-Network-Route-Tables-result1.png) 
 
@@ -476,12 +476,36 @@ Below is the vRouter hosting vSRX_4 point of view for the 9.9.9.9/32 routes
 
 ![Screenshot](img/routing/Routing-Network-Route-Tables-result2.png) 
 
-Below finally we issue a sucessufl ping from vSRX_3 to vSRX_4 new 9.9.9.9/32 loopback.
+Below finally we issue a successful ping from vSRX_3 to vSRX_4 new 9.9.9.9/32 loopback.
 
 ![Screenshot](img/routing/Routing-Network-Route-Tables-result3.png) 
 
 
 ### Interface Route Tables
+
+It allows to create a "static" route _without a next-hop_ since tied to a VMI. Note that we can set a community of our choice or select a well-known community or both. 
+
+WE created in vSRX_4 a new loopback 7.7.7.7/32.
+
+Below first we need to create a static route 7.7.7.7/32. We also take the opportunity to add a community and a well-known-community.  
+
+![Screenshot](img/routing/Routing-Interface-Route-Tables-set.png) 
+
+Then we need to apply it to the Red VN.
+
+![Screenshot](img/routing/Routing-Interface-Route-Tables-set1.png) 
+
+Below is the CN point of view for the 7.7.7.7/32 routes. The 192.168.100.163 next-hop is the vRouter address hosting vSRX_4.
+
+![Screenshot](img/routing/Routing-Interface-Route-Tables-result1.png) 
+
+Below is the vRouter hosting vSRX_4 point of view for the 7.7.7.7/32 routes
+
+![Screenshot](img/routing/Routing-Interface-Route-Tables-result2.png) 
+
+Below finally we issue a successful ping from vSRX_3 to vSRX_4 new 7.7.7.7/32 loopback.
+
+![Screenshot](img/routing/Routing-Interface-Route-Tables-result3.png) 
 
 ### Routing Policies 
 
