@@ -2,7 +2,7 @@
 
 _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October 2018 trunk build (post 5.0.1) and Openstack Queens._
 
-_Screenshots are in PNG format, so a bit heavy and resulting taking some time to load, but best quality._
+_Screenshots are in PNG format, so a bit heavy and so taking some time to load, but best quality._
 
 
 Table of Contents
@@ -372,7 +372,7 @@ TBC
 
 #### Static Route(s)
 
-TBC
+It enables to attach a static route of "Network Route Tables" type. See Routing section for details.
 
 #### ECMP Hashing Fields
 
@@ -450,6 +450,43 @@ _Routing Policy are further described in relevant section._
 ### Fat flows
 
 TBC
+
+
+## Routing
+
+### Network Route Tables
+
+It allows to create a "static" route with a _next-hop_ into a VN. Note that we can set a community of our choice or select a well-known community or both. 
+
+In vSRX_4, we created a new loopback with 9.9.9.9/32.
+
+Below first we need to create a static route 9.9.9.9/32 and we set as next-hop 10.0.0.4 which represents vSRX_4. 
+
+![Screenshot](img/routing/Routing-Network-Route-Tables-set.png) 
+
+Then we need to apply to the Red VN.
+
+![Screenshot](img/routing/Routing-Network-Route-Tables-set1.png) 
+
+Below is the CN point of view for the 9.9.9.9/32 routes
+
+![Screenshot](img/routing/Routing-Network-Route-Tables-result1.png) 
+
+Below is the vRouter hosting vSRX_3 point of view for the 9.9.9.9/32 routes
+
+![Screenshot](img/routing/Routing-Network-Route-Tables-result2.png) 
+
+Below finally we issue a sucessuflu poing from vSRX_3 to vSRX_4 new 9.9.9.9/32 loopback.
+
+![Screenshot](img/routing/Routing-Network-Route-Tables-result3.png) 
+
+
+### Interface Route Tables
+
+### Routing Policies 
+
+### Route Aggregates 
+
 
 
 
