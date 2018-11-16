@@ -507,7 +507,38 @@ Below finally we issue a successful ping from vSRX_3 to vSRX_4 new 7.7.7.7/32 lo
 
 ![Screenshot](img/routing/Routing-Interface-Route-Tables-result3.png) 
 
-### Routing Policies 
+### Routing Policies
+
+Routing policies are very powerful.
+
+For illustration purpose, we will also show the results on an MX SDN GW that already have the necessary peering to Contrail cluster.  
+
+#### VN (no-service-chaining)
+
+The following policy has been defined. 
+
+It is then applied to Red VN.
+
+Below it shows 10.0.0.4 routes to illustrate the xmpp manipulation.
+
+![Screenshot](img/routing/Routing-RP-xmpp-cn.png) 
+
+![Screenshot](img/routing/Routing-RP-xmpp-mx.png) 
+
+Below it shows 7.7.7.7 routes to illustrate the static-interface (Interface-Route-Tables) manipulation.
+
+![Screenshot](img/routing/Routing-RP-static-interface-cn.png) 
+
+![Screenshot](img/routing/Routing-RP-static-interface-mx.png) 
+
+Below it shows 9.9.9.9 routes to illustrate the static (Network-Route-Tables) manipulation.
+
+![Screenshot](img/routing/Routing-RP-static-cn.png) 
+
+![Screenshot](img/routing/Routing-RP-static-mx.png) 
+
+
+#### VN (with-service-chaining)
 
 ### Route Aggregates 
 
