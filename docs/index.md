@@ -458,25 +458,25 @@ TBC
 
 It allows to create a "static" route with a _next-hop_ into a VN. Note that we can set a community of our choice or select a well-known community or both. 
 
-In vSRX_4, we created a new loopback with 9.9.9.9/32.
+WE created in vSRX_4 a new loopback 9.9.9.9/32.
 
 Below first we need to create a static route 9.9.9.9/32 and we set as next-hop 10.0.0.4 which represents vSRX_4. 
 
 ![Screenshot](img/routing/Routing-Network-Route-Tables-set.png) 
 
-Then we need to apply to the Red VN.
+Then we need to apply it to the Red VN.
 
 ![Screenshot](img/routing/Routing-Network-Route-Tables-set1.png) 
 
-Below is the CN point of view for the 9.9.9.9/32 routes
+Below is the CN point of view for the 9.9.9.9/32 routes. The 192.168.100.163 netx-hop is the vRouter address hosting vSRX_4.
 
 ![Screenshot](img/routing/Routing-Network-Route-Tables-result1.png) 
 
-Below is the vRouter hosting vSRX_3 point of view for the 9.9.9.9/32 routes
+Below is the vRouter hosting vSRX_4 point of view for the 9.9.9.9/32 routes
 
 ![Screenshot](img/routing/Routing-Network-Route-Tables-result2.png) 
 
-Below finally we issue a sucessuflu poing from vSRX_3 to vSRX_4 new 9.9.9.9/32 loopback.
+Below finally we issue a sucessufl ping from vSRX_3 to vSRX_4 new 9.9.9.9/32 loopback.
 
 ![Screenshot](img/routing/Routing-Network-Route-Tables-result3.png) 
 
