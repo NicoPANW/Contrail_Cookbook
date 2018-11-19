@@ -477,7 +477,7 @@ TBC
 
 It allows to create a "static" route with a _next-hop_ into a VN. Note that we can set a community of our choice or select a well-known community or both. 
 
-WE created in vSRX_4 a new loopback 9.9.9.9/32.
+We created in vSRX_4 a new loopback 9.9.9.9/32.
 
 Below first we need to create a static route 9.9.9.9/32 and we set as next-hop 10.0.0.4 which represents vSRX_4. 
 
@@ -506,7 +506,7 @@ It allows to create a "static" route _without a next-hop_ since tied to a port (
 
 It can be attached either to a port (VMI) or to an interface of an SI (service-chain).
 
-WE created in vSRX_4 a new loopback 7.7.7.7/32.
+We created in vSRX_4 a new loopback 7.7.7.7/32.
 
 Below first we need to create a static route 7.7.7.7/32. We also take the opportunity to add a community and a well-known-community.  
 
