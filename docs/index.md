@@ -502,15 +502,19 @@ Below finally we issue a successful ping from vSRX_3 to vSRX_4 new 9.9.9.9/32 lo
 
 ### Interface Route Tables
 
-It allows to create a "static" route _without a next-hop_ since tied to a VMI. Note that we can set a community of our choice or select a well-known community or both. 
+It allows to create a "static" route _without a next-hop_ since tied to a port (VMI). Note that we can set a community of our choice or select a well-known community or both. 
+
+It can be attached either to a port (VMI) or to an interface of an SI (service-chain).
 
 WE created in vSRX_4 a new loopback 7.7.7.7/32.
 
 Below first we need to create a static route 7.7.7.7/32. We also take the opportunity to add a community and a well-known-community.  
 
+#### Attaching to a port
+
 ![Screenshot](img/routing/Routing-Interface-Route-Tables-set.png) 
 
-Then we need to apply it to the Red VN.
+Then we need to apply it to a Port (VMI)
 
 ![Screenshot](img/routing/Routing-Interface-Route-Tables-set1.png) 
 
@@ -525,6 +529,12 @@ Below is the vRouter hosting vSRX_4 point of view for the 7.7.7.7/32 routes
 Below finally we issue a successful ping from vSRX_3 to vSRX_4 new 7.7.7.7/32 loopback.
 
 ![Screenshot](img/routing/Routing-Interface-Route-Tables-result3.png) 
+
+#### Attaching to an interface of an SI
+
+Below it shows how to attach to an interface of an SI. The rest is same as before.
+
+![Screenshot](img/routing/Routing-Interface-Route-Tables-set2.png) 
 
 ### Routing Policies
 
