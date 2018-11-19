@@ -550,7 +550,7 @@ On protocol, we have type and subtype as follow:
 * XMPP
 	* interface (vmi)
 	* interface-static (Interface Route Tables)
-* static (Network Route Tables)
+* Static (Network Route Tables)
 * BGP
 	* BGPaaS
 * Service-chain
