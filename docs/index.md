@@ -543,10 +543,15 @@ On protocol, we have type and subtype as follow:
 ** BGPaaS
 * Service-chain
 ** service-interface
-* aggregate?
+* Aggregate
 
+They can be applied either on a VN or on a service-instance (service-chain).
 
-#### Import policy on a VN (no-service-chaining)
+#### Import routing policy on a VN
+
+In Red VN we can see the routes and corresponding protocol type/subtype.
+
+![Screenshot](img/routing/Routing-RP-policy-routes.png) 
 
 The following policy has been defined. 
 
@@ -582,16 +587,28 @@ To show the type and subtype, if we only match on type "xmpp", only routes previ
 TO ADD - TBC
 
 
-#### Import policy with a VN (with-service-chaining)
+#### Routing Policy on a service-chain
 
-We have same as before but in addition a service-chain has been added as follow: red_VN----SI----blue_VN.
+We now have a service-chain as follow: red_VN----SI----blue_VN.
 Blue_VN subnet is 31.0.0.0/24.
 SI is having left with 10.0.0.7 and right with 31.0.0.4.
 A VM in blue is having 31.0.0.3.
 
+In Red VN, we now have the blue VN routes. We can notice the protocol type. 
 
-#### Policy on a service-chain
+![Screenshot](Routing-RP-SFC-routes.png) 
 
+The following Routing Policy is defined and attached to SI as below.
+
+![Screenshot](Routing-RP-SFC-define.png)
+
+![Screenshot](Routing-RP-SFC-set.png)
+
+Below it shows 31.0.0.3 routes to illustrate the service-chain (service-interface) manipulation.
+
+![Screenshot](Routing-RP-SFC-cn.png)
+
+![Screenshot](Routing-RP-SFC-MX.png)
 
 ### Route Aggregates 
 
