@@ -538,13 +538,13 @@ We can match on community, protocol and prefix.
 
 On protocol, we have type and subtype as follow:
 * XMPP
-** interface (vmi)
-** interface-static (Interface Route Tables)
+	* interface (vmi)
+	* interface-static (Interface Route Tables)
 * static (Network Route Tables)
 * BGP
-** BGPaaS
+	* BGPaaS
 * Service-chain
-** service-interface
+	* service-interface
 * Aggregate
 
 They can be applied either on a VN or on a service-instance (service-chain).
@@ -598,19 +598,19 @@ A VM in blue is having 31.0.0.3.
 
 In Red VN, we now have the blue VN routes. We can notice the protocol type. 
 
-![Screenshot](Routing-RP-SFC-routes.png) 
+![Screenshot](img/routing/Routing-RP-SFC-routes.png) 
 
 The following Routing Policy is defined and attached to SI as below.
 
-![Screenshot](Routing-RP-SFC-define.png)
+![Screenshot](img/routing/Routing-RP-SFC-define.png)
 
-![Screenshot](Routing-RP-SFC-set.png)
+![Screenshot](img/routing/Routing-RP-SFC-set.png)
 
 Below it shows 31.0.0.3 routes to illustrate the service-chain (service-interface) manipulation.
 
-![Screenshot](Routing-RP-SFC-cn.png)
+![Screenshot](img/routing/Routing-RP-SFC-cn.png)
 
-![Screenshot](Routing-RP-SFC-MX.png)
+![Screenshot](img/routing/Routing-RP-SFC-MX.png)
 
 ### Route Aggregates 
 
