@@ -11,6 +11,7 @@ Table of Contents
    * [Networking](#networking)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
          * [Network Policy(s)](#network-policys)
+         * [Subnets](#subnets)
          * [Host routes](#host-routes)
          * [Advanced Options](#advanced-options)
             * [Forwarding Mode](#forwarding-mode)
@@ -28,12 +29,28 @@ Table of Contents
             * [IP Fabric Forwarding](#ip-fabric-forwarding)
             * [Allow transit](#allow-transit)
             * [Extend to Physical Router(s)](#extend-to-physical-routers)
+            * [External](#external)
+            * [SNAT](#snat)
+            * [Mirroring](#mirroring)
+            * [Multiple Service Chains](#multiple-service-chains)
+            * [Static Route(s)](#static-routes)
+            * [ECMP Hashing Fields](#ecmp-hashing-fields)
+            * [Security Logging Object(s)](#security-logging-objects)
+            * [QoS](#qos)
+            * [Provider Network](#provider-network)
             * [PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains](#pbb-evpn-pbb-encapsulation-pbb-etree-layer2-control-word-mac-learning-bridge-domains)
          * [DNS Server(s)](#dns-servers)
          * [Route Target(s)](#route-targets)
          * [Export Route Target(s) and Import Route Target(s)](#export-route-targets-and-import-route-targets)
          * [Import Policy](#import-policy)
          * [Fat flows](#fat-flows)
+      * [Routing](#routing)
+         * [Network Route Tables](#network-route-tables)
+         * [Interface Route Tables](#interface-route-tables)
+         * [Routing Policies](#routing-policies)
+            * [VN (no-service-chaining)](#vn-no-service-chaining)
+            * [VN (with-service-chaining)](#vn-with-service-chaining)
+         * [Route Aggregates](#route-aggregates)
 
 
 # Networking
@@ -513,7 +530,23 @@ Routing policies are very powerful.
 
 For illustration purpose, we will also show the results on an MX SDN GW that already have the necessary peering to Contrail cluster.  
 
-#### VN (no-service-chaining)
+As usual, order matters in policy.
+
+We can match on community, protocol and prefix. 
+
+On protocol, we have type and subtype as follow:
+* XMPP
+** interface (vmi)
+** interface-static (Interface Route Tables)
+* static (Network Route Tables)
+* BGP
+** BGPaaS
+* Service-chain
+** service-interface
+* aggregate?
+
+
+#### Import policy on a VN (no-service-chaining)
 
 The following policy has been defined. 
 
@@ -544,9 +577,25 @@ Below it shows 9.9.9.9 routes to illustrate the static (Network-Route-Tables) ma
 ![Screenshot](img/routing/Routing-RP-static-mx.png) 
 
 
-#### VN (with-service-chaining)
+To show the type and subtype, if we only match on type "xmpp", only routes previously seen are now having set the community and LP set accordingly. 
+
+TO ADD - TBC
+
+
+#### Import policy with a VN (with-service-chaining)
+
+We have same as before but in addition a service-chain has been added as follow: red_VN----SI----blue_VN.
+Blue_VN subnet is 31.0.0.0/24.
+SI is having left with 10.0.0.7 and right with 31.0.0.4.
+A VM in blue is having 31.0.0.3.
+
+
+#### Policy on a service-chain
+
 
 ### Route Aggregates 
+
+##### Combination of aggregate and filtering
 
 
 
