@@ -48,9 +48,11 @@ Table of Contents
          * [Network Route Tables](#network-route-tables)
          * [Interface Route Tables](#interface-route-tables)
          * [Routing Policies](#routing-policies)
-            * [VN (no-service-chaining)](#vn-no-service-chaining)
-            * [VN (with-service-chaining)](#vn-with-service-chaining)
+            * [Import routing policy on a VN](#import-routing-policy-on-a-vn)
+            * [Routing Policy on a service-chain](#routing-policy-on-a-service-chain)
          * [Route Aggregates](#route-aggregates)
+               * [Combination of aggregate and filtering](#combination-of-aggregate-and-filtering)
+
 
 
 # Networking
