@@ -35,6 +35,10 @@ Table of Contents
             * [Multiple Service Chains](#multiple-service-chains)
             * [Static Route(s)](#static-routes)
             * [ECMP Hashing Fields](#ecmp-hashing-fields)
+               * [Inside same VN](#inside-same-vn)
+                  * [default](#default)
+                  * [source-ip only](#source-ip-only)
+               * [with SIs in scale-out (service-chaining)](#with-sis-in-scale-out-service-chaining)
             * [Security Logging Object(s)](#security-logging-objects)
             * [QoS](#qos)
             * [Provider Network](#provider-network)
@@ -44,16 +48,16 @@ Table of Contents
          * [Export Route Target(s) and Import Route Target(s)](#export-route-targets-and-import-route-targets)
          * [Import Policy](#import-policy)
          * [Fat flows](#fat-flows)
+      * [Ports](#ports)
       * [Routing](#routing)
          * [Network Route Tables](#network-route-tables)
          * [Interface Route Tables](#interface-route-tables)
+            * [Attaching to a port](#attaching-to-a-port)
+            * [Attaching to an interface of an SI](#attaching-to-an-interface-of-an-si)
          * [Routing Policies](#routing-policies)
             * [Import routing policy on a VN](#import-routing-policy-on-a-vn)
             * [Routing Policy on a service-chain](#routing-policy-on-a-service-chain)
          * [Route Aggregates](#route-aggregates)
-               * [Combination of aggregate and filtering](#combination-of-aggregate-and-filtering)
-
-
 
 # Networking
 
