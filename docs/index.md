@@ -68,8 +68,8 @@ In order to explain the Virtual Networks and all associated knobs, a Red VN with
 
 The following screenshoots show for each VM the associated IP@ and Mac@
 - vSRX_3: 10.0.0.3 / 02:42:d3:0f:50:35
-- vSRX_4: 10.0.0.4 / 02:35:62:da:f5:b0
-- vSRX_5: 10.0.0.5 / 02:03:04:6d:19:c1
+- vSRX_4: 10.0.0.4 / 02:37:f4:6f:5f:cb
+- vSRX_5: 10.0.0.5 / 02:8c:4d:c0:0a:d8
 
 ![Screenshot](img/virtual_networks/vSRX_3-interface.png)
 
@@ -395,7 +395,46 @@ It enables to attach a static route of "Network Route Tables" type. See Routing 
 
 #### ECMP Hashing Fields
 
-TBC
+By default, Contrail uses a 5-tuples for hashing during ECMP load balancing. 
+
+The 5-tuples is standard and as follow: Source L3 address, Destination L3 address, L4 protocol, L4 SourcePort and L4 DestinationPort.
+
+On a per VN basis, we can modify the tuple for the hash.
+
+##### Inside same VN
+
+To demonstrate the feature, we use the 3 vSRX in the Red_VN. 
+
+vSRX_4 and vSRX_5 have been configured with same loopback 7.7.7.7/32. An Interface Route table (see corresponding section for details) was created accordingly on both ports of vSRX_4 and vSRX_5.
+
+vSRX_4 has mac@ 02:37:f4:6f:5f:cb
+vSRX_5 has mac@ 02:8c:4d:c0:0a:d8
+
+vSRX_3 will be used as initiator of ssh traffic. Two ssh connections will be issued sequentially from two terminals on vSRX_3.
+
+###### default
+
+Below we see that ECMP hashing field is empty, so inheriting the global conf (that is 5-tuple).
+
+![Screenshot](img/virtual_networks/VR-ECMP-VN-default.png) 
+
+Below is a TCPdump of the vSRX_3 VMI. We can notice that two ssh sessions were initiated, and each got loadbalanced to both vSRX (mac@ are different).
+
+![Screenshot](img/virtual_networks/VR-ECMP-VN-default-result.png) 
+
+###### source-ip only
+
+Below we see that ECMP hashing field is now with source-ip.
+
+![Screenshot](img/virtual_networks/VR-ECMP-VN-source.png) 
+
+Below is a TCPdump of the vSRX_3 VMI. We can notice that two ssh sessions were initiated and each time vSRX_5 that has mac@ 02:8c:4d:c0:0a:d8 answred (same test was repeated with many connections for verification purpose)
+
+![Screenshot](img/virtual_networks/VR-ECMP-VN-source-result.png)
+
+
+##### with SIs in scale-out (service-chaining) 
+
 
 #### Security Logging Object(s)
 
@@ -550,7 +589,13 @@ Below is the vRouter hosting vSRX_4 point of view for the 7.7.7.7/32 routes
 
 Below finally we issue a successful ping from vSRX_3 to vSRX_4 new 7.7.7.7/32 loopback.
 
-![Screenshot](img/routing/Routing-Interface-Route-Tables-result3.png) 
+![Screenshot](img/routing/Routing-Interface-Route-Tables-result3.png).
+
+Note that it can be attached to multiple ports. It will create routes accordingly (added the 7.7.7.7 route to vSRX_5 port. vSRX_5 is on compute-4v-8.sdn.lab), see below.
+
+![Screenshot](img/routing/Routing-Interface-Route-Tables-result4.png).
+
+
 
 #### Attaching to an interface of an SI
 
