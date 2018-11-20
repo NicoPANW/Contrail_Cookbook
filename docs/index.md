@@ -407,7 +407,21 @@ TBC
 
 #### Provider Network
 
-TBC
+This knob enables to map a VN to a NIC via SR-IOV. Note that it can only be enabled if no VM running on the VN.
+
+It assumes that SR-IOV has been properly configured upfront (VF function on the NIC, etc.). Further detailed [here](https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/sriov-with-vrouter-vnc.html#jd0e177) 
+
+On the VN, need to specify the Provider Network with information defined in SR-IOV configuration on the host.
+
+![Screenshot](img/virtual_networks/VR-SRIOV-VN.png) 
+
+Then need to create a port tied to the VN as below. The value field must have "direct" as input. 
+
+![Screenshot](img/virtual_networks/VR-SRIOV-port.png) 
+
+
+Using the UUID of the Neutron port you created, use the nova boot command to launch the VM from that port.
+nova boot --flavor m1.large --image <image name> --nic port-id=<uuid of above port> <vm name>
 
 #### PBB EVPN: PBB Encapsulation, PBB ETree, Layer2 Control Word, MAC Learning, Bridge Domains
 
@@ -469,6 +483,10 @@ _Routing Policy are further described in relevant section._
 ### Fat flows
 
 TBC
+
+
+## Ports
+
 
 
 ## Routing
