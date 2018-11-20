@@ -432,7 +432,7 @@ Below we see that ECMP hashing field is now with source-ip.
 
 ![Screenshot](img/virtual_networks/VR-ECMP-VN-source.png) 
 
-Below is a TCPdump of the vSRX_3 VMI. We can notice that two ssh sessions were initiated and each time vSRX_5 that has mac@ 02:8c:4d:c0:0a:d8 answred (same test was repeated with many connections for verification purpose)
+Below is a TCPdump of the vSRX_3 VMI. We can notice that two ssh sessions were initiated and each time vSRX_5 that has mac@ 02:8c:4d:c0:0a:d8 answered (same test was repeated with many connections for verification purpose)
 
 ![Screenshot](img/virtual_networks/VR-ECMP-VN-source-result.png)
 
