@@ -610,7 +610,7 @@ In Red VN, we now have the blue VN routes. We can notice the protocol type.
 
 ![Screenshot](img/routing/Routing-RP-SFC-routes.png) 
 
-The following Routing Policy is defined and attached to SI as below.
+The following Routing Policy is defined and attached to SI as below. Note that in order to get the policy effective for left network (so routes from right to left), need to apply it on SI left interface.
 
 ![Screenshot](img/routing/Routing-RP-SFC-define.png)
 
@@ -624,7 +624,9 @@ Below it shows 31.0.0.3 routes to illustrate the service-chain (service-interfac
 
 ### Route Aggregates 
 
-##### Combination of aggregate and filtering
+It enables to aggregate routes. However, note that Route Aggregates can only be applied to an SI (service-chain). 
+
+
 
 
 
