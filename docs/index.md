@@ -399,7 +399,11 @@ TBC
 
 #### Security Logging Object(s)
 
-TBC
+Security events including traffic session ACCEPTs and DROPs due to enforcement of policy and security groups have to be logged to Analytics, this is the purpose of Security Logging Object (SLO).
+
+It is defined in Global Config and can be applied on a per VN basis as below. 
+
+![Screenshot](img/virtual_networks/VR-SLO-set.png) 
 
 #### QoS
 
