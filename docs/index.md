@@ -2,7 +2,7 @@
 
 _This Contrail_Cookbook has been written based on a [Tungsten Fabric](https://tungsten.io/) cluster, from early October 2018 trunk build (post 5.0.1) and Openstack Queens._
 
-_Screenshots are in PNG format, so a bit heavy and so taking some time to load, but best quality._
+_Screenshots are in PNG format, so a bit heavy and therefore taking some time to load, but best quality._
 
 
 Table of Contents
@@ -61,11 +61,9 @@ Table of Contents
 
 # Networking
 
-## Networks (Virtual Networks)
+In order to explain the section and all associated knobs, a Red VN with VMs have been created. 
 
-In order to explain the Virtual Networks and all associated knobs, a Red VN with VMs have been created. 
-
-- Red VN having 3 VMs attached: vSRX_3, vSRX_4 and vSRX_5
+- Red VN is having 3 VMs attached: vSRX_3, vSRX_4 and vSRX_5
 - We can understand on which compute the VM runs. Besides, they all run on different computes. 
 
 ![Screenshot](img/virtual_networks/VN-general.png)
@@ -80,6 +78,8 @@ The following screenshoots show for each VM the associated IP@ and Mac@
 ![Screenshot](img/virtual_networks/vSRX_4-interface.png)
 
 ![Screenshot](img/virtual_networks/vSRX_5-interface.png)
+
+## Networks (Virtual Networks)
 
 ### Network Policy(s)
 
@@ -151,7 +151,8 @@ VRouter behavior on receiving an ARP Request (from VM to vRouter):
     Else // Route not found
         Flood the ARP
 
-_Note: ARP processing is greatly further detailed here: https://github.com/Juniper/contrail-controller/wiki/Contrail-VRouter-ARP-Processing_ 
+_Note: ARP processing is greatly further detailed [here](https://github.com/Juniper/contrail-controller/wiki/Contrail-VRouter-ARP-Processing)_
+
 
 ##### L2 and L3
 
@@ -159,7 +160,7 @@ In this mode IPv4 traffic lookup is done via IP FIB and all non IPv4 traffic is 
 
 This is the default option and should be used unless having a specific requirement.
 
-In below, it is worth mentioning that since we are on compute-4v-7.sdn.lab that is hosting vSRX-3, 10.0.0.3/32 has local tap-interface, while for instance 10.0.0.4/32 has tunneling via MPLSoUDP since being on another compute. Simiraly, 02:42:d3:0f:50:35 has local tap-interface while for instance 02:37:f4:6f:5f:cb has tunneling via MPLSoUDP since being on another compute
+In below screenshot, it is worth mentioning that since we are on _compute-4v-7.sdn.lab_ that is hosting vSRX-3, 10.0.0.3/32 has local tap-interface, while for instance 10.0.0.4/32 has tunneling via MPLSoUDP since being on another compute. Simiraly, 02:42:d3:0f:50:35 has local tap-interface while for instance 02:37:f4:6f:5f:cb has tunneling via MPLSoUDP since being on another compute.
 
 ![Screenshot](img/virtual_networks/VR-L2L3-L3view.png)
 
@@ -168,11 +169,11 @@ In below, it is worth mentioning that since we are on compute-4v-7.sdn.lab that 
 
 ###### Known IP@ and mac@
 
-Below screenshot shows on compute-4v-7.sdn.lab that vRouter has associated 10.0.0.4 to 02:37:f4:6f:5f:cb. It has "P" in flag to say "Proxy ARP".
+Below screenshot shows on _compute-4v-7.sdn.lab_ that vRouter has associated 10.0.0.4 to 02:37:f4:6f:5f:cb. It has "P" in flag to say "Proxy ARP".
 
 ![Screenshot](img/virtual_networks/VR-L2L3-RTdump.png)
 
-Below vSRX_3 pings vSRX_4 (ARP table on vSRX_3 was cleared). We notice that vSRX_3 sends an ARP request for 10.0.0.4 and **vRouter** will answer the ARP request thanks to mac@ known above. Besides, on vif interface we can see the flag "L3L2".
+Below vSRX_3 pings vSRX_4 (ARP table on vSRX_3 was cleared). We notice that vSRX_3 sends an ARP request for 10.0.0.4 and **vRouter** will answer (on behalf of vSRX_4, so acting as proxy ARP) the ARP request thanks to mac@ known above. Besides, on vif interface we can see the flag "L3L2".
 
 ![Screenshot](img/virtual_networks/VR-L2L3-ping.png)
 
@@ -182,7 +183,7 @@ _This is a corner case and most of the time the result of bad VNF implementation
 
 Here we have unconfigured DHCP on vSRX_5 and manually set IP@ 10.0.0.12/32. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this IP@ will be unknown.
 
-Below the mac@ of IP@ 10.0.0.12/32 is resolved, but ICMP packets are dropped since unknown IP@.
+Below the mac@ of IP@ 10.0.0.12/32 is resolved (but ARP request is not proxy by vRouter but flooded and answered by vSRX_5 itself). ICMP packets are dropped since unknown IP@.
 
 ![Screenshot](img/virtual_networks/VR-L2L3-unkownIP.png)
 
@@ -202,7 +203,7 @@ _This is a corner case and most of the time the result of bad VNF implementation
 
 Here we have manually set on vSRX_5 a new mac@ 02:8c:4d:c0:00:01 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
 
-Below we see resolution of mac@ for 10.0.0.5, but since vRouter act as proxy, it answers back with mac@ known by vRouter but it is wrong. vSRX_3 sends ping to a wrong mac@. L2-only allows this scenario and this is shown later.
+Below we see resolution of mac@ for 10.0.0.5, but since vRouter act as proxy in this case, it answers back with vRouter mac@. vSRX_3 sends ping to a wrong mac@.
 
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmac.png)
@@ -242,7 +243,7 @@ Below vSRX_3 pings vSRX_4. ARP table on vSRX_3 was cleared. We notice that vSRX_
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
-Here we have unconfigured DHCP on vSRX_5 and manually set IP@ 10.0.0.12/32. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this IP@ will be unknown.
+Here we have unconfigured DHCP on vSRX_5 and manually set IP@ 10.0.0.12/32.
 
 Below the mac@ of IP@ 10.0.0.12/32 is resolved and ICMP packets are going through. 
 
@@ -256,7 +257,7 @@ _This is a corner case and most of the time the result of bad VNF implementation
 
 Here we have manually set on vSRX_5 a new mac@ 02:8c:4d:c0:00:01 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
 
-Below we see resolution of mac@ for 10.0.0.5 with 02:8c:4d:c0:00:01. However only ICMP echo goes through. vRouter is dropping packet since seeing an unknown mac@.
+Below we see resolution of mac@ for 10.0.0.5 with 02:8c:4d:c0:00:01 that is vRouter mac@. However only ICMP echo goes through. vRouter is dropping packet since seeing an unknown mac@.
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmac.png)
 
@@ -289,7 +290,7 @@ By default, Contrail has "Reverse Path Forwarding" knob enables in the VN. It me
 
 To demonstrate the feature, let's configure for instance a loopback 11.0.0.9/32 on vSRX_3. From vSRX_3 do ssh to vSRX_4 from this new loopback. 
 
-Below, Reverse Path Forwarding is enabled on VN red, it shows that the compute hosting vSRX_4 is not having any ssh trace. The reason is that compute hosting vSRX_3 is dropping the packet since RPF is on. 
+Below, Reverse Path Forwarding is enabled on Red VN, it shows that the compute hosting vSRX_4 is not having any ssh trace. The reason is that compute hosting vSRX_3 is dropping the packet since RPF is on. 
 
 ![Screenshot](img/virtual_networks/VR-Reverse-Path-Forwarding-on.png)
 
@@ -302,7 +303,7 @@ Below, Reverse Path Forwarding is now disabled on VN red, it shows that the comp
 #### Shared
 
 A VN is defined for a project. It means that another project will not see this VN. 
-However, sometimes it is desired that a VN is seen by all other projects (i.e. an Internet VN shared for all projects).
+However, sometimes it is desired that a VN is seen by all other projects (i.e. an management-VN shared for all projects).
 
 Below, we have a new project "Other_tenant", and we can notice there is no VN. 
 
@@ -350,17 +351,17 @@ Below shows a ping from vSRX_4 having 10.0.0.4 to an underlay device having 192.
 
 Allow transit enables to readvertise service-chain routes from a VN to another service-chain. Note that a VN cannot be connected directly to a transit VN.
 
-The use case is VNLeft----SI1----VNmiddle-----SI2-----VNRight. This assumes being familiar with Contrail service-chaining (ST, SI, ploicy, etc.). 
+The use case is VNLeft----SI1----VNmiddle-----SI2-----VNRight. This assumes being familiar with Contrail service-chaining (ST, SI, policy, etc.). 
 
 ![Screenshot](img/virtual_networks/VR-Allow-transit-netwoks.png)
 
-So routes from VNRight will by default be readvertised to VNmiddle as per service-chaining. However, they won't be readvertised to VNleft, see below.
+So routes from VN right will by default be readvertised to VN middle as per service-chaining. However, they won't be readvertised to VNleft, see below.
 
 ![Screenshot](img/virtual_networks/VR-Allow-transit-no1.png)
 
 ![Screenshot](img/virtual_networks/VR-Allow-transit-no2.png)
 
-However, if we enable "allow transit" on VNmiddle, VNRight routes in VNmiddle will be readvertised to VNLeft (and vice-versa from Left to Right). 
+However, if we enable "allow transit" on VN middle, VN Right routes in VN middle will be readvertised to VN Left (and vice-versa from Left to Right). 
 
 ![Screenshot](img/virtual_networks/VR-Allow-transit-on.png)
 
@@ -407,16 +408,17 @@ On a per VN basis, we can modify the tuple for the hash.
 
 ##### Inside same VN
 
-To demonstrate the feature, we use the 3 vSRX in the Red_VN. 
+To demonstrate the feature, we use the 3 vSRX in the Red VN. 
 
 vSRX_4 and vSRX_5 have been configured with same loopback 7.7.7.7/32. An Interface Route table (see corresponding section for details) was created accordingly on both ports of vSRX_4 and vSRX_5.
 
 vSRX_4 has mac@ 02:37:f4:6f:5f:cb
+
 vSRX_5 has mac@ 02:8c:4d:c0:0a:d8
 
 vSRX_3 will be used as initiator of ssh traffic. Two ssh connections will be issued sequentially from two terminals on vSRX_3.
 
-###### default
+###### Default
 
 Below we see that ECMP hashing field is empty, so inheriting the global conf (that is 5-tuple).
 
@@ -426,7 +428,7 @@ Below is a TCPdump of the vSRX_3 VMI. We can notice that two ssh sessions were i
 
 ![Screenshot](img/virtual_networks/VR-ECMP-VN-default-result.png) 
 
-###### source-ip only
+###### Source-ip only
 
 Below we see that ECMP hashing field is now with source-ip.
 
@@ -437,7 +439,7 @@ Below is a TCPdump of the vSRX_3 VMI. We can notice that two ssh sessions were i
 ![Screenshot](img/virtual_networks/VR-ECMP-VN-source-result.png)
 
 
-##### with SIs in scale-out (service-chaining) 
+##### With SIs in scale-out (service-chaining) 
 
 
 #### Security Logging Object(s)
@@ -513,9 +515,9 @@ We can also look a given route in Red VN to notice the RT (only export)
 
 ### Export Route Target(s) and Import Route Target(s)
 
-Unlikeprevious feature that easily make symmetric RT and which is a common use case, we can have asymmetric RTs for a VN.
+Unlike previous feature that easily make symmetric RT and which is a common use case, we can have asymmetric RTs for a VN.
 
-Below it shows how to add a asymmetric RT (in addition to the Contrail auto-generated one) and the result.
+Below it shows how to add an asymmetric RT (in addition to the Contrail auto-generated one) and the result. We use introspect to both see import and export.
 
 ![Screenshot](img/virtual_networks/VR-RT-ie-set.png) 
 
