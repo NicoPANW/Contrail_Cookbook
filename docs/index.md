@@ -203,7 +203,7 @@ _This is a corner case and most of the time the result of bad VNF implementation
 
 Here we have manually set on vSRX_5 a new mac@ 02:8c:4d:c0:00:01 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
 
-Below we see resolution of mac@ for 10.0.0.5, but since vRouter act as proxy in this case, it answers back with vRouter mac@. vSRX_3 sends ping to a wrong mac@.
+Below we see resolution of mac@ for 10.0.0.5, the arp is flooded, and vSRX_5 answers back with 02:8c:4d:c0:00:01. vSRX_3 sends ping but dropped since unknown mac for 10.0.0.5.
 
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmac.png)
@@ -257,7 +257,7 @@ _This is a corner case and most of the time the result of bad VNF implementation
 
 Here we have manually set on vSRX_5 a new mac@ 02:8c:4d:c0:00:01 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
 
-Below we see resolution of mac@ for 10.0.0.5 with 02:8c:4d:c0:00:01 that is vRouter mac@. However only ICMP echo goes through. vRouter is dropping packet since seeing an unknown mac@.
+Below we see resolution of mac@ for 10.0.0.5 with 02:8c:4d:c0:00:01. However only ICMP echo goes through. vRouter is dropping packet since seeing an unknown mac@.
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmac.png)
 
