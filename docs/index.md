@@ -100,7 +100,7 @@ The most common way is "User Defined" as below. It means that the user defines h
 * Gateway = GW IP@ will auto-populated by Contrail with x.x.x.1 address or could be manually specified. 
 * Service Address = used for metadata service (vRouter DHCP and DNS messages to VM) with x.x.x.2 address by default or could be manually specified. 
 * DNS = enable DNS to provide DNS parameters that were specified in IPAM. If nothing specified, the service address of the subnet is used as the DNS server.
-* DHCP = enable DHCP in the VN to provide IP@ to VMs along other DHCP options, so vRouter traps DHCP message coming from VM. If DHCP is disabled in the subnet, the broadcast DHCP requests will be flooded in the VN. 
+* DHCP = enable DHCP in the VN to provide IP@ to VMs along other DHCP options, so vRouter traps DHCP message coming from VM. If DHCP is disabled in the subnet, the broadcast DHCP requests will be flooded in the VN.
 
 ![Screenshot](img/virtual_networks/VR-subnet-user-defined.png)
 
@@ -209,7 +209,7 @@ Below we see resolution of mac@ for 10.0.0.5 from compute 7 hosting vSRX_3. vRou
 
 ![Screenshot](img/virtual_networks/VR-L2-L3-unknownmac.png)
 
-Below it is from compute 8 hosting vSRX_5. First of all, it proves that the arp request has been intercepted by compute 7 since no arp request from vSRX_3. Then we notice the ICMP echo, but no reply. vSRX_5 is sending arp request for vSRX_3 but with an unknown mac address as source, so vRouter never replies. 
+Below it is from compute 8 hosting vSRX_5. First of all, it proves that the arp request has been intercepted by vrouter on compute 7 since no arp request from vSRX_3. Then we notice the ICMP echo request, but no reply. vSRX_5 is sending arp request for vSRX_3 but with an unknown mac address as source, so vRouter never replies. 
 
 ![Screenshot](img/virtual_networks/VR-L2-L3-unknownmac1.png)
 
@@ -217,11 +217,11 @@ A workaround to make it work is to define the new mac@ via AAP on the vSRX_5 por
 
 ![Screenshot](img/virtual_networks/VR-L2L3-unkownmacAAP.png)
 
-Below, the sequence on compute 7 hosting vSRX_3 is same as before. vRouter acts as a proxy and answers back with the known mac@ 02:8c:4d:c0:0a:d8. The ICMP echo request is sent to 02:8c:4d:c0:0a:d8, and this time it has echo reply with source mac@ 12:34:56:78:91:11. 
+Below, the sequence on compute 7 hosting vSRX_3 is same as before. vRouter acts as a proxy and answers back with the known mac@ 02:8c:4d:c0:0a:d8. The ICMP echo request is sent to dest mac@ 02:8c:4d:c0:0a:d8, and this time it has echo reply but with source mac@ 12:34:56:78:91:11. 
 
 ![Screenshot](img/virtual_networks/VR-L2L3-unkownmacAAPtrace.png)
 
-Below it is from compute 8 hosting vSRX_5. First of all, it proves that the arp request has been intercepted by compute 7 since no arp request from vSRX_3. vSRX_5 is sending arp request for vSRX_3, and vRouter act as proxy and this time answering back the ARP request. Then vSRX_5 is sending the echo reply with source mac@ 12:34:56:78:91:11.
+Below it is from compute 8 hosting vSRX_5. First of all, it proves that the arp request has been intercepted by compute 7 since no arp request from vSRX_3. vSRX_5 is sending arp request for vSRX_3 and with source mac@ 12:34:56:78:91:11, and vRouter act as proxy and this time answering back the ARP request. Then vSRX_5 is sending the echo reply with source mac@ 12:34:56:78:91:11.
 
 ![Screenshot](img/virtual_networks/VR-L2L3-unkownmacAAPtrace1.png)
 
@@ -232,6 +232,8 @@ _Note: L2-only allows this scenario without extra AAP and this is shown later._
 All traffic goes via MAC FIB lookup only.
 
 _Note: This option is useful once we have non-IP traffic like legacy protocols in VNF (PXEboot, DHCP request to another VM, etc.)._ 
+
+###### Known IP@ and mac@
 
 Below we can notice that the IP FIB is empty while the MAC FIB is populated.
 
@@ -270,14 +272,19 @@ Here we have manually set on vSRX_5 a new mac@ 12:34:56:78:91:11 but keep initia
 
 ARP cache table cleared on both vSRX_3 and vSRX_5.
 
-
+Below it is from compute 7 hosting vSRX_3. vSRX_3 sends an arp request for vSRX_5 IP@. It is flooded and get request back with the new mac@ 12:34:56:78:91:11. vSRX_3 sends ICMP echo request, but no reply.  
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmac.png)
 
+Below it is from compute 8 hosting vSRX_3. We notice the arp request from vSRX_3 and it replies from vSRX_5. However, no ICMP echo request coming in, they are dropped on vRouter compute 7 since unknown mac@ traffic.  
 
-In order to make it work, need to add in the VN the knob "Flood Unknown Unicast".
+![Screenshot](img/virtual_networks/VR-L2-unknownmac1.png)
+
+In order to make it work, need to add in the VN the knob "Flood Unknown Unicast". ARP cache table cleared on both vSRX_3 and vSRX_5.
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmacwithset.png)
+
+Below it is from compute 7 hosting vSRX_3. vSRX_3 sends an arp request for vSRX_5 IP@. It is flooded and get request back with the new mac@ 12:34:56:78:91:11. vSRX_3 sends ICMP echo request and now gets reply.
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmacwithflood.png)
 
