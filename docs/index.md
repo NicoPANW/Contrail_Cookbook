@@ -201,20 +201,31 @@ _L2-only allows this scenario without extra AAP and this is shown later._
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
-Here we have manually set on vSRX_5 a new mac@ 02:8c:4d:c0:00:01 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
+Here we have manually set on vSRX_5 a new mac@ 12:34:56:78:91:11 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
 
-Below we see resolution of mac@ for 10.0.0.5, the arp is flooded, and vSRX_5 answers back with 02:8c:4d:c0:00:01. vSRX_3 sends ping but dropped since unknown mac for 10.0.0.5.
+ARP cache table cleared on both vSRX_3 and vSRX_5.
 
+Below we see resolution of mac@ for 10.0.0.5 from compute 7 hosting vSRX_3. vRouter acts as a proxy and answers back with the known mac@ 02:8c:4d:c0:0a:d8. The ICMP echo request is sent to 02:8c:4d:c0:0a:d8, no reply comes back. 
 
-![Screenshot](img/virtual_networks/VR-L2-unknownmac.png)
+![Screenshot](img/virtual_networks/VR-L2-L3-unknownmac.png)
 
-A workaround to make it work is to define the new mac@ via AAP on the vSRX_5 port.
+Below it is from compute 8 hosting vSRX_5. First of all, it proves that the arp request has been intercepted by compute 7 since no arp request from vSRX_3. Then we notice the ICMP echo, but no reply. vSRX_5 is sending arp request for vSRX_3 but with an unknown mac address as source, so vRouter never replies. 
+
+![Screenshot](img/virtual_networks/VR-L2-L3-unknownmac1.png)
+
+A workaround to make it work is to define the new mac@ via AAP on the vSRX_5 port. ARP cache table cleared on both vSRX_3 and vSRX_5.
 
 ![Screenshot](img/virtual_networks/VR-L2L3-unkownmacAAP.png)
 
+Below, the sequence on compute 7 hosting vSRX_3 is same as before. vRouter acts as a proxy and answers back with the known mac@ 02:8c:4d:c0:0a:d8. The ICMP echo request is sent to 02:8c:4d:c0:0a:d8, and this time it has echo reply with source mac@ 12:34:56:78:91:11. 
+
 ![Screenshot](img/virtual_networks/VR-L2L3-unkownmacAAPtrace.png)
 
-_L2-only allows this scenario without extra AAP and this is shown later._ 
+Below it is from compute 8 hosting vSRX_5. First of all, it proves that the arp request has been intercepted by compute 7 since no arp request from vSRX_3. vSRX_5 is sending arp request for vSRX_3, and vRouter act as proxy and this time answering back the ARP request. Then vSRX_5 is sending the echo reply with source mac@ 12:34:56:78:91:11.
+
+![Screenshot](img/virtual_networks/VR-L2L3-unkownmacAAPtrace1.png)
+
+_Note: L2-only allows this scenario without extra AAP and this is shown later._ 
 
 ##### L2 only
 
@@ -255,9 +266,11 @@ Below the mac@ of IP@ 10.0.0.12/32 is resolved and ICMP packets are going throug
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
-Here we have manually set on vSRX_5 a new mac@ 02:8c:4d:c0:00:01 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
+Here we have manually set on vSRX_5 a new mac@ 12:34:56:78:91:11 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
 
-Below we see resolution of mac@ for 10.0.0.5 with 02:8c:4d:c0:00:01. However only ICMP echo goes through. vRouter is dropping packet since seeing an unknown mac@.
+ARP cache table cleared on both vSRX_3 and vSRX_5.
+
+
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmac.png)
 
