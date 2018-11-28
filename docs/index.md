@@ -20,6 +20,7 @@ Table of Contents
                   * [Unknown IP@](#unknown-ip)
                   * [Known IP@ but unknown Mac@](#known-ip-but-unknown-mac)
                * [L2 only](#l2-only)
+                  * [Known IP@ and mac@](#known-ip-and-mac-1)
                   * [Unknown IP@](#unknown-ip-1)
                   * [Known IP@ but unknown Mac@](#known-ip-but-unknown-mac-1)
                * [L3 only](#l3-only)
@@ -36,9 +37,9 @@ Table of Contents
             * [Static Route(s)](#static-routes)
             * [ECMP Hashing Fields](#ecmp-hashing-fields)
                * [Inside same VN](#inside-same-vn)
-                  * [default](#default)
-                  * [source-ip only](#source-ip-only)
-               * [with SIs in scale-out (service-chaining)](#with-sis-in-scale-out-service-chaining)
+                  * [Default](#default)
+                  * [Source-ip only](#source-ip-only)
+               * [With SIs in scale-out (service-chaining)](#with-sis-in-scale-out-service-chaining)
             * [Security Logging Object(s)](#security-logging-objects)
             * [QoS](#qos)
             * [Provider Network](#provider-network)
@@ -49,6 +50,10 @@ Table of Contents
          * [Import Policy](#import-policy)
          * [Fat flows](#fat-flows)
       * [Ports](#ports)
+         * [Port auto-created once VM is created](#port-auto-created-once-vm-is-created)
+         * [Port created before the VM](#port-created-before-the-vm)
+         * [Security Group(s)](#security-groups)
+      * [Security Groups](#security-groups-1)
       * [Routing](#routing)
          * [Network Route Tables](#network-route-tables)
          * [Interface Route Tables](#interface-route-tables)
@@ -58,6 +63,7 @@ Table of Contents
             * [Import routing policy on a VN](#import-routing-policy-on-a-vn)
             * [Routing Policy on a service-chain](#routing-policy-on-a-service-chain)
          * [Route Aggregates](#route-aggregates)
+
 
 # Networking
 
