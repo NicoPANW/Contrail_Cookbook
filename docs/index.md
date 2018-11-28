@@ -268,6 +268,8 @@ Below the mac@ of IP@ 10.0.0.12/32 is resolved and ICMP packets are going throug
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
+PLEASE IGNORE THIS SECTION, THERE MISTAKES, BEING UPDATED.
+
 Here we have manually set on vSRX_5 a new mac@ 12:34:56:78:91:11 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
 
 ARP cache table cleared on both vSRX_3 and vSRX_5.
