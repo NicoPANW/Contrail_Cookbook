@@ -560,6 +560,44 @@ TBC
 
 ## Ports
 
+A port is a connection to a NIC of a VM. 
+
+A port can be either auto-created at VM creation because associated to a given VN or alternatively we can create a port in Contrail and then tie it once a VM is created in OpenStack. 
+
+### Port auto-created once VM is created
+
+A VM has been created on OpenStack and tied to Red VN. Therefore, a port has been auto-created and vRouter DHCP has provided an IP@. Note that the VN and name can not be changed anymore. 
+
+
+![Screenshot](img/ports/Port-autocreate-1.png) 
+
+![Screenshot](img/ports/Port-autocreate-2.png) 
+
+![Screenshot](img/ports/Port-autocreate-3.png) 
+
+### Port created before the VM
+
+This provides greater control on port settings. For instance, we can specify a fixed IP@ rather than relying on auto assignment by Contrail vRouter DHCP.
+
+Below we create a fresh new port for Red VN. 
+
+![Screenshot](img/ports/Port-create-1.png) 
+
+Below we leave the mac@ empty (we could have specified it) but we specify the IP@.
+
+![Screenshot](img/ports/Port-create-2.png) 
+
+Below we notice that no compute are associated to this port, since it is not yet tied to a VM.
+
+![Screenshot](img/ports/Port-create-3.png) 
+
+Below it is showing again the port after VM was created on OpenStack. We now notice that a compute is now associated. 
+
+![Screenshot](img/ports/Port-create-4.png) 
+
+Below it is showing that mac@ has been provided by OpenStack.  
+
+![Screenshot](img/ports/Port-create-5.png) 
 
 
 ## Routing
