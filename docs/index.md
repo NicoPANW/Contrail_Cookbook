@@ -465,6 +465,7 @@ Below is a TCPdump of the vSRX_3 VMI. We can notice that two ssh sessions were i
 
 ##### With SIs in scale-out (service-chaining) 
 
+TBC
 
 #### Security Logging Object(s)
 
@@ -560,9 +561,16 @@ TBC
 
 ## Ports
 
-A port is a connection to a NIC of a VM. 
+A port is a connection to a NIC of a VM. It is also referred as Virtual Machine Interface (VMI).
 
 A port can be either auto-created at VM creation because associated to a given VN or alternatively we can create a port in Contrail and then tie it once a VM is created in OpenStack. 
+
+There are various places to get info on port, but introspect is the best since consolidating all info in a single place, see below.
+
+![Screenshot](img/ports/Port-introspect-1.png) 
+![Screenshot](img/ports/Port-introspect-2.png)
+![Screenshot](img/ports/Port-introspect-3.png)
+![Screenshot](img/ports/Port-introspect-4.png)
 
 ### Port auto-created once VM is created
 
@@ -574,6 +582,8 @@ A VM has been created on OpenStack and tied to Red VN. Therefore, a port has bee
 ![Screenshot](img/ports/Port-autocreate-2.png) 
 
 ![Screenshot](img/ports/Port-autocreate-3.png) 
+
+![Screenshot](img/ports/Port-autocreate-4.png) 
 
 ### Port created before the VM
 
@@ -598,6 +608,18 @@ Below it is showing again the port after VM was created on OpenStack. We now not
 Below it is showing that mac@ has been provided by OpenStack.  
 
 ![Screenshot](img/ports/Port-create-5.png) 
+
+### Security Group(s)
+
+Security Group (aka SG) is an OpenStack concept. It is similar to ACL. It is on a per port (VMI) basis.  
+
+In Contrail, SG are enforced by Contrail vRouter. 
+
+Once a VM is created, if nothing explicit is done for SG, the default SG will be attached to the port. 
+
+Multiple SG can be attached to a port.
+
+
 
 
 ## Routing
