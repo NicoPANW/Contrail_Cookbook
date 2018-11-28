@@ -233,6 +233,8 @@ All traffic goes via MAC FIB lookup only.
 
 _Note: This option is useful once we have non-IP traffic like legacy protocols in VNF (PXEboot, DHCP request to another VM, etc.)._ 
 
+_Note: In L2-only VN it is best practice to disable in IPAM subnet settings DHCP, and set at 0.0.0.0 DNS and GW IP@_
+
 ###### Known IP@ and mac@
 
 Below we can notice that the IP FIB is empty while the MAC FIB is populated.
