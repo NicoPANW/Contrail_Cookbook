@@ -619,8 +619,49 @@ Once a VM is created, if nothing explicit is done for SG, the default SG will be
 
 Multiple SG can be attached to a port.
 
+We have defined the following SG. Default allows anything, while the other one is only allowing TCP for a given IP@.
+
+![Screenshot](img/ports/Port-SG-desc.png) 
+
+Below we have attached to vSRX_4 port the two SG. It shows that if a given SG is allowing, it supersedes a more restrictive one. 
+
+![Screenshot](img/ports/Port-SG-2applied.png) 
 
 
+Below shows that if a given SG is allowing, it supersedes a more restrictive one. Indeed, vSRX_3 can ping and ssh vSRX_4.
+
+![Screenshot](img/ports/Port-SG-2applied-traffic.png) 
+
+Now if we just have the specific SG as below on the VMI, ICMP traffic will be blocked while ssh goes through.
+
+![Screenshot](img/ports/Port-SG-1applied.png) 
+
+![Screenshot](img/ports/Port-SG-1applied-traffic.png) 
+
+We can also notice on the vRouter running vSRX_4 the flow. ICMP block because "D" Flag while ssh is "F".
+
+![Screenshot](img/ports/Port-SG-1applied-traffic-flow.png) 
+
+SG can be looked at via Introspect to drill into low level details. 
+
+To look about SG for a given VMI, we can check with Introspect the list of SG attached and their UUID as below. 
+
+![Screenshot](img/ports/Port-SG-intro1.png) 
+
+Then we can list all SG and match a given UUID of above VMI. It is 9f03cf4c-cf6d-4715-a2db-196c1ba12e7c.
+
+![Screenshot](img/ports/Port-SG-intro2.png) 
+
+Then we can look at ingress and egress ACL as below. We can notice the SG that was define with proto 6 (TCP), IP@ 10.0.0.3/32 and the action pass (it is hidden in SG definition). 
+
+![Screenshot](img/ports/Port-SG-intro3.png) 
+
+![Screenshot](img/ports/Port-SG-intro4.png) 
+
+
+## Security Groups
+
+Security are explained in ports section, since applied to ports. 
 
 ## Routing
 
