@@ -672,9 +672,15 @@ Then we can look at ingress and egress ACL as below. We can notice the SG that w
 
 ##### Admin State
 
+It is a way to set the port up or down. This is rather useful for troubleshooting.
+
 ##### Fixed IPs
 
-##### Static Routes
+
+
+##### Static Routes 
+
+It allows to create a "static" route _without a next-hop_ since tied to a port (VMI). It is described here [Interface Route Tables](#interface-route-tables)
 
 ##### Service Health Check
 
@@ -683,6 +689,14 @@ Then we can look at ingress and egress ACL as below. We can notice the SG that w
 ##### Allowed address pair(s)
 
 ##### ECMP Hashing Fields
+
+By default, Contrail uses a 5-tuples for hashing during ECMP load balancing. 
+
+The 5-tuples is standard and as follow: Source L3 address, Destination L3 address, L4 protocol, L4 SourcePort and L4 DestinationPort.
+
+On a per VMI basis, we can modify the tuple for the hash.
+
+It is similar as in a VN, and described here [ECMP Hashing Fields](#ecmp-hashing-fields)
 
 ##### Device Owner
 
