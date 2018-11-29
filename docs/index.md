@@ -621,7 +621,7 @@ In Contrail, SG are enforced by Contrail vRouter.
 
 Once a VM is created, if nothing explicit is done for SG, the default SG will be attached to the port. 
 
-_Be careful, once a new tenant is created, the default SG won't allow any traffic._
+_Be careful, once a new tenant is created, the default SG won't allow any traffic. It has to be updated._
 
 Multiple SG can be attached to a port.
 
@@ -663,6 +663,49 @@ Then we can look at ingress and egress ACL as below. We can notice the SG that w
 ![Screenshot](img/ports/Port-SG-intro3.png) 
 
 ![Screenshot](img/ports/Port-SG-intro4.png) 
+
+### Floating IPs
+
+#### Advanced Options
+
+##### MAC Address 
+
+##### Admin State
+
+##### Fixed IPs
+
+##### Static Routes
+
+##### Service Health Check
+
+##### QoS
+
+##### Allowed address pair(s)
+
+##### ECMP Hashing Fields
+
+##### Device Owner
+
+##### Compute UUID
+
+##### Security Logging Object(s)
+
+Security events including traffic session ACCEPTs and DROPs due to enforcement of policy and security groups have to be logged to Analytics, this is the purpose of Security Logging Object (SLO).
+
+It is defined in Global Config and can be applied on a per VMI basis as below. 
+
+![Screenshot](img/virtual_networks/Port-SLO-set.png) 
+
+##### Port Binding(s)
+
+##### Packet Mode
+
+##### Mirroring
+
+### DHCP Option(s)
+
+### Fat Flow(s)
+
 
 
 ## Security Groups
