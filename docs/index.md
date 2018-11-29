@@ -589,8 +589,6 @@ A VM has been created on OpenStack and tied to Red VN. Therefore, a port has bee
 
 ![Screenshot](img/ports/Port-autocreate-3.png) 
 
-![Screenshot](img/ports/Port-autocreate-4.png) 
-
 ### Port created before the VM
 
 This provides greater control on port settings. For instance, we can specify a fixed IP@ rather than relying on auto IP@ selection by Contrail vRouter DHCP (though vRouter DHCP can still be used to announce the IP@ to the VM).
@@ -617,11 +615,13 @@ Below it is showing that mac@ has been provided by OpenStack.
 
 ### Security Group(s)
 
-Security Group (aka SG) is an OpenStack concept. It is similar to ACL. It is on a per port (VMI) basis.  
+Security Group (aka SG) is an OpenStack concept. It is on a per port (VMI) basis. It is similar to ACL, and the low level Contrail construct is based on ingress @ egress ACL.
 
 In Contrail, SG are enforced by Contrail vRouter. 
 
 Once a VM is created, if nothing explicit is done for SG, the default SG will be attached to the port. 
+
+_Be careful, once a new tenant is created, the default SG won't allow any traffic._
 
 Multiple SG can be attached to a port.
 
@@ -629,7 +629,7 @@ We have defined the following SG. Default allows anything, while the other one i
 
 ![Screenshot](img/ports/Port-SG-desc.png) 
 
-Below we have attached to vSRX_4 port the two SG. It shows that if a given SG is allowing, it supersedes a more restrictive one. 
+Below we have attached to vSRX_4 port the two SG.
 
 ![Screenshot](img/ports/Port-SG-2applied.png) 
 
@@ -644,11 +644,11 @@ Now if we just have the specific SG as below on the VMI, ICMP traffic will be bl
 
 ![Screenshot](img/ports/Port-SG-1applied-traffic.png) 
 
-We can also notice on the vRouter running vSRX_4 the flow. ICMP block because "D" Flag while ssh is "F".
+We can also notice on the vRouter running vSRX_4 the flow. ICMP is blocked because "D" Flag while ssh is forwarded because "F".
 
 ![Screenshot](img/ports/Port-SG-1applied-traffic-flow.png) 
 
-SG can be looked at via Introspect to drill into low level details. 
+SG can be looked at via Introspect to drill down into low level details. 
 
 To look about SG for a given VMI, we can check with Introspect the list of SG attached and their UUID as below. 
 
