@@ -593,7 +593,7 @@ A VM has been created on OpenStack and tied to Red VN. Therefore, a port has bee
 
 ### Port created before the VM
 
-This provides greater control on port settings. For instance, we can specify a fixed IP@ rather than relying on auto assignment by Contrail vRouter DHCP.
+This provides greater control on port settings. For instance, we can specify a fixed IP@ rather than relying on auto IP@ selection by Contrail vRouter DHCP (though vRouter DHCP can still be used to announce the IP@ to the VM).
 
 Below we create a fresh new port for Red VN. 
 
