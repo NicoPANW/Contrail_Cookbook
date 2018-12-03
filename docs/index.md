@@ -124,6 +124,16 @@ Below how to configure it and then result on a Cirros VM.
 
 ### Advanced Options
 
+#### Admin State
+
+It is a way to set the port up or down. This is rather useful for troubleshooting.
+
+Below we set the Red VN as down. All inet routes are then gone. So routing is not operating. Note that it does not affect VM running, they still operate but can't send traffic anymore.
+
+![Screenshot](img/virtual_networks/VR-admin1.png)
+
+![Screenshot](img/virtual_networks/VR-admin2.png)
+
 #### Forwarding Mode
 Contrail supports 3 forwarding modes: L2 and L3, L2 only and L3 only. Note that default option means L2 and L3.
 
@@ -806,6 +816,7 @@ Note that it can be attached to multiple ports. It will create routes accordingl
 Below it shows how to attach to an interface of an SI. The rest is same as before.
 
 ![Screenshot](img/routing/Routing-Interface-Route-Tables-set2.png) 
+
 
 ### Floating IP Pools
 
