@@ -571,6 +571,8 @@ A port is a connection to a NIC of a VM. It is also referred as Virtual Machine 
 
 A port can be either auto-created at VM creation because associated to a given VN or alternatively we can create a port in Contrail and then tie it once a VM is created in OpenStack. 
 
+A port can have subports.
+
 There are various places to get info on port, but introspect is the best since consolidating all info in a single place, see below.
 
 ![Screenshot](img/ports/Port-introspect-1.png) 
@@ -613,11 +615,13 @@ Below it is showing that mac@ has been provided by OpenStack.
 
 ![Screenshot](img/ports/Port-create-5.png) 
 
+### Subport
+
 ### Security Group(s)
 
-Security Group (aka SG) is an OpenStack concept. It is on a per port (VMI) basis. It is similar to ACL, and the low level Contrail construct is based on ingress @ egress ACL.
+Security Group (aka SG) is an OpenStack concept. It is on a per port (VMI) basis. It is similar to ACL. 
 
-In Contrail, SG are enforced by Contrail vRouter. 
+In Contrail SG are enforced by Contrail vRouter. The low level Contrail construct is based on ingress & egress ACL.
 
 Once a VM is created, if nothing explicit is done for SG, the default SG will be attached to the port. 
 
@@ -625,7 +629,7 @@ _Be careful, once a new tenant is created, the default SG won't allow any traffi
 
 Multiple SG can be attached to a port.
 
-We have defined the following SG. Default allows anything, while the other one is only allowing TCP for a given IP@.
+We have defined the following SG below. Default allows anything, while the other one is only allowing TCP for a given IP@.
 
 ![Screenshot](img/ports/Port-SG-desc.png) 
 
@@ -650,7 +654,7 @@ We can also notice on the vRouter running vSRX_4 the flow. ICMP is blocked becau
 
 SG can be looked at via Introspect to drill down into low level details. 
 
-To look about SG for a given VMI, we can check with Introspect the list of SG attached and their UUID as below. 
+To look about SG for a given VMI, we can check with introspect the list of SG attached and their UUID as below. 
 
 ![Screenshot](img/ports/Port-SG-intro1.png) 
 
@@ -665,6 +669,8 @@ Then we can look at ingress and egress ACL as below. We can notice the SG that w
 ![Screenshot](img/ports/Port-SG-intro4.png) 
 
 ### Floating IPs
+
+It is described in Floating IPs section.
 
 #### Advanced Options
 
@@ -714,6 +720,10 @@ It is defined in Global Config and can be applied on a per VMI basis as below.
 
 ##### Packet Mode
 
+By default, it is not ticked. Indeed, Contrail vRouter is based on flow processing. 
+
+If it is ticked, it will turn the port in packet mode. 
+
 ##### Mirroring
 
 ### DHCP Option(s)
@@ -724,7 +734,7 @@ It is defined in Global Config and can be applied on a per VMI basis as below.
 
 ## Security Groups
 
-Security are explained in ports section, since applied to ports. 
+Security Groups are explained in ports section, since applied to ports, here [Security Group(s)](#security-groups)
 
 ## Routing
 
@@ -796,6 +806,61 @@ Note that it can be attached to multiple ports. It will create routes accordingl
 Below it shows how to attach to an interface of an SI. The rest is same as before.
 
 ![Screenshot](img/routing/Routing-Interface-Route-Tables-set2.png) 
+
+### Floating IP Pools
+
+See next section for explanations.
+
+### Floating IPs
+
+Usually, VM IP@ uses private addresses. However, whenever communications with external public network (i.e. Internet), it requires public IP@. Floating IPs aim to provide a solution. It is similar to a static one-to-one NAT between a private and public address. 
+
+Below we illustrate how to use it where we would like vSRX_4 that has private 10.0.0.4, and we want to be reachable via a public IP@ 88.0.0.10, which is a Floating IPs (FIP).
+
+We first need to create an IPAM to host the FIP pool as below.
+
+![Screenshot](img/routing/FIP1.png) 
+
+We then need to tie this new FIP IPAM to the red VN. Note that we untick the DNS and DHCP since will never be used (these addresses are not given to VMs).
+
+![Screenshot](img/routing/FIP2.png) 
+
+We then create a FIP pools for Red VN. In order for the FIP pool to be refered later, we must update the permissions. 
+
+![Screenshot](img/routing/FIP3.png) 
+
+![Screenshot](img/routing/FIP4.png) 
+
+We then create a FIP, and in this case in order to get better control on the FIP@, we select for allocation type as "specific".
+
+![Screenshot](img/routing/FIP5.png) 
+
+Finally, we need to tie this FIP to the vSRX_4 port. Note that we can refer to an AAP if the adress is a VIP. 
+
+![Screenshot](img/routing/FIP6.png) 
+
+Note it can also be attached in the port itself.  
+
+![Screenshot](img/routing/FIP7.png) 
+
+We issue a successful ping from vSRX_3 to 88.0.0.10 which is a FIP of vSRX_4 port.
+
+![Screenshot](img/routing/FIP8.png) 
+
+We do a tcpdump on the VMI of vSRX_3. We can notice as dest of 88.0.0.10 and replies back from it.
+
+![Screenshot](img/routing/FIP9.png) 
+
+We do a tcpdump on the VMI of vSRX_4. We can notice as source 10.0.0.3 and replies back to it.
+
+![Screenshot](img/routing/FIP10.png) 
+
+Finally, a flow -l on vSRX_4 compute shows the NAT action of the flow.
+
+![Screenshot](img/routing/FIP11.png) 
+
+
+
 
 ### Routing Policies
 
