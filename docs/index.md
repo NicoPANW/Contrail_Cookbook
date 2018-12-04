@@ -317,8 +317,6 @@ Below the mac@ of IP@ 10.0.0.12/32 is resolved and ICMP packets are going throug
 
 _This is a corner case and most of the time the result of bad VNF implementation._ 
 
-PLEASE IGNORE THIS SECTION, THERE ARE MISTAKES, BEING UPDATED.
-
 Here we have manually set on vSRX_5 a new mac@ 12:34:56:78:91:11 but keep initial IP@ 10.0.0.5. So as explained before, because Contrail knows the IP@ and Mac@ bindings via OpenStack, this Mac@ will be unknown.
 
 ARP cache table cleared on both vSRX_3 and vSRX_5.
@@ -331,13 +329,9 @@ Below it is from compute 8 hosting vSRX_3. We notice the arp request from vSRX_3
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmac1.png)
 
-In order to make it work, need to add in the VN the knob "Flood Unknown Unicast". ARP cache table cleared on both vSRX_3 and vSRX_5.
+In order to make it work, need to add in the VN the knob "Flood Unknown Unicast".
 
 ![Screenshot](img/virtual_networks/VR-L2-unknownmacwithset.png)
-
-Below it is from compute 7 hosting vSRX_3. vSRX_3 sends an arp request for vSRX_5 IP@. It is flooded and get request back with the new mac@ 12:34:56:78:91:11. vSRX_3 sends ICMP echo request and now gets reply.
-
-![Screenshot](img/virtual_networks/VR-L2-unknownmacwithflood.png)
 
 
 ##### L3 only
@@ -743,6 +737,8 @@ It allows to create a "static" route _without a next-hop_ since tied to a port (
 
 #### Allowed address pair(s)
 
+
+
 #### ECMP Hashing Fields
 
 By default, Contrail uses a 5-tuples for hashing during ECMP load balancing. 
@@ -790,11 +786,11 @@ However, the following fetaures will not work anymore:
 
 Below we set the packet mode for the vSRX_5 VMI. 
 
-![Screenshot](img/virtual_networks/Port-packetmode1.png) 
+![Screenshot](img/ports/Port-packetmode1.png) 
 
 Below we can notice via Introspect that the VMI has policy as disabled.
 
-![Screenshot](img/virtual_networks/Port-packetmode2.png) 
+![Screenshot](img/ports/Port-packetmode2.png) 
 
 #### Mirroring
 
@@ -1001,8 +997,6 @@ Below it shows 9.9.9.9 routes to illustrate the static (Network-Route-Tables) ma
 
 
 To show the type and subtype, if we only match on type "xmpp", only routes previously seen are now having set the community and LP set accordingly. 
-
-TO ADD - TBC
 
 
 #### Routing Policy on a service-chain
