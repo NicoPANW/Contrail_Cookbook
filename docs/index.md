@@ -719,13 +719,19 @@ It is described in Floating IPs section.
 
 MAC address can be left empty and then auto-populated by OpenStack, or we can set a specific value.
 
+![Screenshot](img/ports/Port-Mac.png) 
+
 #### Admin State
 
 It is a way to set the port up or down. This is rather useful for troubleshooting.
 
+![Screenshot](img/ports/Port-Admin_state.png) 
+
 #### Fixed IPs
 
-This field 
+This field is to define an IP address. Either it is auto-filled up at the VM creation or we can create a port and specify an IP address.
+
+![Screenshot](img/ports/Port-IP@.png) 
 
 #### Static Routes 
 
@@ -766,6 +772,22 @@ It is defined in Global Config and can be applied on a per VMI basis as below.
 By default, it is not ticked. Indeed, Contrail vRouter is based on flow processing. 
 
 If it is ticked, it will turn the port in packet mode. 
+
+This mode is usually required whenever having high scale of flows and where the flow setup rate is important metric. Hence, being in Packet mode, the flow no longer exists and therefore no any limitations.
+
+However, the following fetaures will not work anymore:
+- less analytics since no flows
+- No ACL match in network policy (from protocol TCP, port = ssh then…)
+ - Only routing leaking is processed, while ACL is not
+ - No network policy steering, No network policy mirroring 
+- No Security Groups (implemented via flows) and generally speaking no security features
+- Service Chaining relies on flows: no service chains except for single SI (possibly with scaled out)
+- Flow Symetrization 
+- FIP 
+- SNAT
+- RPF checks
+
+
 
 #### Mirroring
 
