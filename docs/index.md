@@ -7,6 +7,7 @@ _Screenshots are in PNG format, so a bit heavy and therefore taking some time to
 
 Table of Contents
 =================
+
    * [Networking](#networking)
       * [Load-balancing (TBC)](#load-balancing-tbc)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
@@ -56,21 +57,21 @@ Table of Contents
          * [Subport](#subport)
          * [Security Group(s)](#security-groups)
          * [Floating IPs](#floating-ips)
-            * [Advanced Options](#advanced-options-1)
-               * [MAC Address](#mac-address)
-               * [Admin State](#admin-state-1)
-               * [Fixed IPs](#fixed-ips)
-               * [Static Routes](#static-routes-1)
-               * [Service Health Check](#service-health-check)
-               * [QoS](#qos-1)
-               * [Allowed address pair(s)](#allowed-address-pairs)
-               * [ECMP Hashing Fields](#ecmp-hashing-fields-1)
-               * [Device Owner](#device-owner)
-               * [Compute UUID](#compute-uuid)
-               * [Security Logging Object(s)](#security-logging-objects-1)
-               * [Port Binding(s)](#port-bindings)
-               * [Packet Mode](#packet-mode)
-               * [Mirroring](#mirroring-1)
+         * [Advanced Options](#advanced-options-1)
+            * [MAC Address](#mac-address)
+            * [Admin State](#admin-state-1)
+            * [Fixed IPs](#fixed-ips)
+            * [Static Routes](#static-routes-1)
+            * [Service Health Check](#service-health-check)
+            * [QoS](#qos-1)
+            * [Allowed address pair(s)](#allowed-address-pairs)
+            * [ECMP Hashing Fields](#ecmp-hashing-fields-1)
+            * [Device Owner](#device-owner)
+            * [Compute UUID](#compute-uuid)
+            * [Security Logging Object(s)](#security-logging-objects-1)
+            * [Port Binding(s)](#port-bindings)
+            * [Packet Mode](#packet-mode)
+            * [Mirroring](#mirroring-1)
          * [DHCP Option(s)](#dhcp-options)
          * [Fat Flow(s)](#fat-flows-1)
       * [Policies (TBC)](#policies-tbc)
@@ -712,31 +713,31 @@ Then we can look at ingress and egress ACL as below. We can notice the SG that w
 
 It is described in Floating IPs section.
 
-#### Advanced Options
+### Advanced Options
 
-##### MAC Address 
+#### MAC Address 
 
 MAC address can be left empty and then auto-populated by OpenStack, or we can set a specific value.
 
-##### Admin State
+#### Admin State
 
 It is a way to set the port up or down. This is rather useful for troubleshooting.
 
-##### Fixed IPs
+#### Fixed IPs
 
 This field 
 
-##### Static Routes 
+#### Static Routes 
 
 It allows to create a "static" route _without a next-hop_ since tied to a port (VMI). It is described here [Interface Route Tables](#interface-route-tables)
 
-##### Service Health Check
+#### Service Health Check
 
-##### QoS
+#### QoS
 
-##### Allowed address pair(s)
+#### Allowed address pair(s)
 
-##### ECMP Hashing Fields
+#### ECMP Hashing Fields
 
 By default, Contrail uses a 5-tuples for hashing during ECMP load balancing. 
 
@@ -746,11 +747,11 @@ On a per VMI basis, we can modify the tuple for the hash.
 
 It is similar as in a VN, and described here [ECMP Hashing Fields](#ecmp-hashing-fields)
 
-##### Device Owner
+#### Device Owner
 
-##### Compute UUID
+#### Compute UUID
 
-##### Security Logging Object(s)
+#### Security Logging Object(s)
 
 Security events including traffic session ACCEPTs and DROPs due to enforcement of policy and security groups have to be logged to Analytics, this is the purpose of Security Logging Object (SLO).
 
@@ -758,15 +759,15 @@ It is defined in Global Config and can be applied on a per VMI basis as below.
 
 ![Screenshot](img/virtual_networks/Port-SLO-set.png) 
 
-##### Port Binding(s)
+#### Port Binding(s)
 
-##### Packet Mode
+#### Packet Mode
 
 By default, it is not ticked. Indeed, Contrail vRouter is based on flow processing. 
 
 If it is ticked, it will turn the port in packet mode. 
 
-##### Mirroring
+#### Mirroring
 
 ### DHCP Option(s)
 
