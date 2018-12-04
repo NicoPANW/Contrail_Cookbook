@@ -7,13 +7,14 @@ _Screenshots are in PNG format, so a bit heavy and therefore taking some time to
 
 Table of Contents
 =================
-
    * [Networking](#networking)
+      * [Load-balancing (TBC)](#load-balancing-tbc)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
          * [Network Policy(s)](#network-policys)
          * [Subnets](#subnets)
          * [Host routes](#host-routes)
          * [Advanced Options](#advanced-options)
+            * [Admin State](#admin-state)
             * [Forwarding Mode](#forwarding-mode)
                * [L2 and L3](#l2-and-l3)
                   * [Known IP@ and mac@](#known-ip-and-mac)
@@ -52,8 +53,32 @@ Table of Contents
       * [Ports](#ports)
          * [Port auto-created once VM is created](#port-auto-created-once-vm-is-created)
          * [Port created before the VM](#port-created-before-the-vm)
+         * [Subport](#subport)
          * [Security Group(s)](#security-groups)
+         * [Floating IPs](#floating-ips)
+            * [Advanced Options](#advanced-options-1)
+               * [MAC Address](#mac-address)
+               * [Admin State](#admin-state-1)
+               * [Fixed IPs](#fixed-ips)
+               * [Static Routes](#static-routes-1)
+               * [Service Health Check](#service-health-check)
+               * [QoS](#qos-1)
+               * [Allowed address pair(s)](#allowed-address-pairs)
+               * [ECMP Hashing Fields](#ecmp-hashing-fields-1)
+               * [Device Owner](#device-owner)
+               * [Compute UUID](#compute-uuid)
+               * [Security Logging Object(s)](#security-logging-objects-1)
+               * [Port Binding(s)](#port-bindings)
+               * [Packet Mode](#packet-mode)
+               * [Mirroring](#mirroring-1)
+         * [DHCP Option(s)](#dhcp-options)
+         * [Fat Flow(s)](#fat-flows-1)
+      * [Policies (TBC)](#policies-tbc)
       * [Security Groups](#security-groups-1)
+      * [Routers (TBC)](#routers-tbc)
+      * [IP Address Management (TBC)](#ip-address-management-tbc)
+      * [Floating IP Pools](#floating-ip-pools)
+      * [Floating IPs](#floating-ips-1)
       * [Routing](#routing)
          * [Network Route Tables](#network-route-tables)
          * [Interface Route Tables](#interface-route-tables)
@@ -63,8 +88,9 @@ Table of Contents
             * [Import routing policy on a VN](#import-routing-policy-on-a-vn)
             * [Routing Policy on a service-chain](#routing-policy-on-a-service-chain)
          * [Route Aggregates](#route-aggregates)
-
-
+      * [QoS (TBC)](#qos-tbc)
+      * [SLO (TBC)](#slo-tbc)
+      
 # Networking
 
 In order to explain the section and all associated knobs, a Red VN with VMs have been created. 
@@ -84,6 +110,10 @@ The following screenshoots show for each VM the associated IP@ and Mac@
 ![Screenshot](img/virtual_networks/vSRX_4-interface.png)
 
 ![Screenshot](img/virtual_networks/vSRX_5-interface.png)
+
+## Load-balancing (TBC)
+
+TBC
 
 ## Networks (Virtual Networks)
 
@@ -740,11 +770,73 @@ If it is ticked, it will turn the port in packet mode.
 
 ### Fat Flow(s)
 
+## Policies (TBC)
 
+TBC
 
 ## Security Groups
 
 Security Groups are explained in ports section, since applied to ports, here [Security Group(s)](#security-groups)
+
+## Routers (TBC)
+
+TBC
+
+## IP Address Management (TBC)
+
+TBC
+
+## Floating IP Pools
+
+See next section for explanations.
+
+## Floating IPs
+
+Usually, VM IP@ uses private addresses. However, whenever communications with external public network (i.e. Internet), it requires public IP@. Floating IPs aim to provide a solution. It is similar to a static one-to-one NAT between a private and public address. 
+
+Below we illustrate how to use it where we would like vSRX_4 that has private 10.0.0.4, and we want to be reachable via a public IP@ 88.0.0.10, which is a Floating IPs (FIP).
+
+We first need to create an IPAM to host the FIP pool as below.
+
+![Screenshot](img/routing/FIP1.png) 
+
+We then need to tie this new FIP IPAM to the red VN. Note that we untick the DNS and DHCP since will never be used (these addresses are not given to VMs).
+
+![Screenshot](img/routing/FIP2.png) 
+
+We then create a FIP pools for Red VN. In order for the FIP pool to be refered later, we must update the permissions. 
+
+![Screenshot](img/routing/FIP3.png) 
+
+![Screenshot](img/routing/FIP4.png) 
+
+We then create a FIP, and in this case in order to get better control on the FIP@, we select for allocation type as "specific".
+
+![Screenshot](img/routing/FIP5.png) 
+
+Finally, we need to tie this FIP to the vSRX_4 port. Note that we can refer to an AAP if the adress is a VIP. 
+
+![Screenshot](img/routing/FIP6.png) 
+
+Note it can also be attached in the port itself.  
+
+![Screenshot](img/routing/FIP7.png) 
+
+We issue a successful ping from vSRX_3 to 88.0.0.10 which is a FIP of vSRX_4 port.
+
+![Screenshot](img/routing/FIP8.png) 
+
+We do a tcpdump on the VMI of vSRX_3. We can notice as dest of 88.0.0.10 and replies back from it.
+
+![Screenshot](img/routing/FIP9.png) 
+
+We do a tcpdump on the VMI of vSRX_4. We can notice as source 10.0.0.3 and replies back to it.
+
+![Screenshot](img/routing/FIP10.png) 
+
+Finally, a flow -l on vSRX_4 compute shows the NAT action of the flow.
+
+![Screenshot](img/routing/FIP11.png) 
 
 ## Routing
 
@@ -816,61 +908,6 @@ Note that it can be attached to multiple ports. It will create routes accordingl
 Below it shows how to attach to an interface of an SI. The rest is same as before.
 
 ![Screenshot](img/routing/Routing-Interface-Route-Tables-set2.png) 
-
-
-### Floating IP Pools
-
-See next section for explanations.
-
-### Floating IPs
-
-Usually, VM IP@ uses private addresses. However, whenever communications with external public network (i.e. Internet), it requires public IP@. Floating IPs aim to provide a solution. It is similar to a static one-to-one NAT between a private and public address. 
-
-Below we illustrate how to use it where we would like vSRX_4 that has private 10.0.0.4, and we want to be reachable via a public IP@ 88.0.0.10, which is a Floating IPs (FIP).
-
-We first need to create an IPAM to host the FIP pool as below.
-
-![Screenshot](img/routing/FIP1.png) 
-
-We then need to tie this new FIP IPAM to the red VN. Note that we untick the DNS and DHCP since will never be used (these addresses are not given to VMs).
-
-![Screenshot](img/routing/FIP2.png) 
-
-We then create a FIP pools for Red VN. In order for the FIP pool to be refered later, we must update the permissions. 
-
-![Screenshot](img/routing/FIP3.png) 
-
-![Screenshot](img/routing/FIP4.png) 
-
-We then create a FIP, and in this case in order to get better control on the FIP@, we select for allocation type as "specific".
-
-![Screenshot](img/routing/FIP5.png) 
-
-Finally, we need to tie this FIP to the vSRX_4 port. Note that we can refer to an AAP if the adress is a VIP. 
-
-![Screenshot](img/routing/FIP6.png) 
-
-Note it can also be attached in the port itself.  
-
-![Screenshot](img/routing/FIP7.png) 
-
-We issue a successful ping from vSRX_3 to 88.0.0.10 which is a FIP of vSRX_4 port.
-
-![Screenshot](img/routing/FIP8.png) 
-
-We do a tcpdump on the VMI of vSRX_3. We can notice as dest of 88.0.0.10 and replies back from it.
-
-![Screenshot](img/routing/FIP9.png) 
-
-We do a tcpdump on the VMI of vSRX_4. We can notice as source 10.0.0.3 and replies back to it.
-
-![Screenshot](img/routing/FIP10.png) 
-
-Finally, a flow -l on vSRX_4 compute shows the NAT action of the flow.
-
-![Screenshot](img/routing/FIP11.png) 
-
-
 
 
 ### Routing Policies
@@ -963,7 +1000,13 @@ Below it shows 31.0.0.3 routes to illustrate the service-chain (service-interfac
 
 It enables to aggregate routes. However, note that Route Aggregates can only be applied to an SI (service-chain). 
 
+## QoS (TBC)
 
+TBC
+
+## SLO (TBC)
+
+TBC
 
 
 
