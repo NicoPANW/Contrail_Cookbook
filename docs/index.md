@@ -763,7 +763,7 @@ Security events including traffic session ACCEPTs and DROPs due to enforcement o
 
 It is defined in Global Config and can be applied on a per VMI basis as below. 
 
-![Screenshot](img/virtual_networks/Port-SLO-set.png) 
+![Screenshot](img/ports/Port-SLO-set.png) 
 
 #### Port Binding(s)
 
@@ -779,7 +779,8 @@ However, the following fetaures will not work anymore:
 - less analytics since no flows
 - No ACL match in network policy (from protocol TCP, port = ssh then…)
  - Only routing leaking is processed, while ACL is not
- - No network policy steering, No network policy mirroring 
+ - No network policy steering
+ - No network policy mirroring 
 - No Security Groups (implemented via flows) and generally speaking no security features
 - Service Chaining relies on flows: no service chains except for single SI (possibly with scaled out)
 - Flow Symetrization 
@@ -787,7 +788,13 @@ However, the following fetaures will not work anymore:
 - SNAT
 - RPF checks
 
+Below we set the packet mode for the vSRX_5 VMI. 
 
+![Screenshot](img/virtual_networks/Port-packetmode1.png) 
+
+Below we can notice via Introspect that the VMI has policy as disabled.
+
+![Screenshot](img/virtual_networks/Port-packetmode2.png) 
 
 #### Mirroring
 
@@ -823,45 +830,45 @@ Below we illustrate how to use it where we would like vSRX_4 that has private 10
 
 We first need to create an IPAM to host the FIP pool as below.
 
-![Screenshot](img/routing/FIP1.png) 
+![Screenshot](img/FIP/FIP1.png) 
 
 We then need to tie this new FIP IPAM to the red VN. Note that we untick the DNS and DHCP since will never be used (these addresses are not given to VMs).
 
-![Screenshot](img/routing/FIP2.png) 
+![Screenshot](img/FIP/FIP2.png) 
 
 We then create a FIP pools for Red VN. In order for the FIP pool to be refered later, we must update the permissions. 
 
-![Screenshot](img/routing/FIP3.png) 
+![Screenshot](img/FIP/FIP3.png) 
 
-![Screenshot](img/routing/FIP4.png) 
+![Screenshot](img/FIP/FIP4.png) 
 
 We then create a FIP, and in this case in order to get better control on the FIP@, we select for allocation type as "specific".
 
-![Screenshot](img/routing/FIP5.png) 
+![Screenshot](img/FIP/FIP5.png) 
 
 Finally, we need to tie this FIP to the vSRX_4 port. Note that we can refer to an AAP if the adress is a VIP. 
 
-![Screenshot](img/routing/FIP6.png) 
+![Screenshot](img/FIP/FIP6.png) 
 
 Note it can also be attached in the port itself.  
 
-![Screenshot](img/routing/FIP7.png) 
+![Screenshot](img/FIP/FIP7.png) 
 
 We issue a successful ping from vSRX_3 to 88.0.0.10 which is a FIP of vSRX_4 port.
 
-![Screenshot](img/routing/FIP8.png) 
+![Screenshot](img/FIP/FIP8.png) 
 
 We do a tcpdump on the VMI of vSRX_3. We can notice as dest of 88.0.0.10 and replies back from it.
 
-![Screenshot](img/routing/FIP9.png) 
+![Screenshot](img/FIP/FIP9.png) 
 
 We do a tcpdump on the VMI of vSRX_4. We can notice as source 10.0.0.3 and replies back to it.
 
-![Screenshot](img/routing/FIP10.png) 
+![Screenshot](img/FIP/FIP10.png) 
 
 Finally, a flow -l on vSRX_4 compute shows the NAT action of the flow.
 
-![Screenshot](img/routing/FIP11.png) 
+![Screenshot](img/FIP/FIP11.png) 
 
 ## Routing
 
