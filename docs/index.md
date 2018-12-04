@@ -90,7 +90,7 @@ Table of Contents
          * [Route Aggregates](#route-aggregates)
       * [QoS (TBC)](#qos-tbc)
       * [SLO (TBC)](#slo-tbc)
-      
+
 # Networking
 
 In order to explain the section and all associated knobs, a Red VN with VMs have been created. 
@@ -716,13 +716,15 @@ It is described in Floating IPs section.
 
 ##### MAC Address 
 
+MAC address can be left empty and then auto-populated by OpenStack, or we can set a specific value.
+
 ##### Admin State
 
 It is a way to set the port up or down. This is rather useful for troubleshooting.
 
 ##### Fixed IPs
 
-
+This field 
 
 ##### Static Routes 
 
@@ -999,6 +1001,24 @@ Below it shows 31.0.0.3 routes to illustrate the service-chain (service-interfac
 ### Route Aggregates 
 
 It enables to aggregate routes. However, note that Route Aggregates can only be applied to an SI (service-chain). 
+
+We have defined a service chain as follow LeftVM(10.0.0.3/24)----SI1-----RightVM(10.0.2.3/24)
+
+Below it shows the routes on Left_VN. We can see the routes from 10.0.0.0/24 and 10.0.2.0/24. We in particlar notice the routes 10.0.2.3 and 10.0.2.4.
+
+![Screenshot](img/routing/Routing-Aggregates1.png)
+
+Vith route Aggregates, we can create an aggeragate that will replace the specific routes. Below is the sequence to configure it.
+
+![Screenshot](img/routing/Routing-Aggregates2.png)
+
+![Screenshot](img/routing/Routing-Aggregates3.png)
+
+Below it shows again the routes on Left_VN. We can see the routes from 10.0.0.0/24 and 10.0.2.0/24. We in particlar notice now the routes 10.0.2.3 and 10.0.2.4 are no more present and replaced by the aggregate 10.0.0.0/24. 
+
+![Screenshot](img/routing/Routing-Aggregates4.png)
+
+
 
 ## QoS (TBC)
 
