@@ -597,7 +597,7 @@ _Routing Policy are further described in relevant section._
 
 ### Fat flows
 
-TBC
+
 
 
 ## Ports
