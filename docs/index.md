@@ -597,6 +597,31 @@ _Routing Policy are further described in relevant section._
 
 ### Fat flows
 
+By default, vRouter operates in flow with 5 tuples. Because of 5 tuples, it can generate too much flows and affect performance for call set rate and flow table size. 
+
+Therefore, the FAT flow feature enables to reduce the flow tuple. 
+
+To illustrate the feature, we below send
+- from vSRX_3 ssh 31.0.0.5 port 22 VM
+- from vSRX_5 ssh 31.0.0.5 port 22 VM
+- from vSRX_5 ssh 31.0.0.5 port 443 VM
+
+Below it shows the default behaviour. We see 6 flows are created (3 out and 3 reverse). Note that two flows are because of a local ssh between the 31.0.0.5 and the vRouter, this shall be ignored here. 
+
+![Screenshot](img/virtual_networks/VR-FAT1.png) 
+
+Below it shows how to configure FAT flow. In this example we will ignore the destination address and the src/dst port number. 
+
+![Screenshot](img/virtual_networks/VR-FAT2.png) 
+
+Below shows the result via vRouter Introscpect on the VMI of the 31.0.0.5 VM (all VMI in blue VM have been modified). The 6 means TCP, 0 means any src/dest port and 2 means igonore-dest (value 1 is for ignore-source and 0 means none)
+
+![Screenshot](img/virtual_networks/VR-FAT3.png) 
+
+Below it shows the the result with FAT flow enabled as above. We now only see 2 flows are created (1 out and 1 reverse). Note that two flows are because of a local ssh between the 31.0.0.5 and the vRouter, this shall be ignored here.
+
+![Screenshot](img/virtual_networks/VR-FAT4.png) 
+
 
 
 
@@ -842,7 +867,7 @@ Below  we specify the domain-name in the port and we noctice the result on vSRX_
 
 ### Fat Flow(s)
 
-By defulat, vRouter operates in flow with 5 tuples. Because of 5 tuples, it can generate too much flows and affect performance for call set rate and flow table size. 
+By default, vRouter operates in flow with 5 tuples. Because of 5 tuples, it can generate too much flows and affect performance for call set rate and flow table size. 
 
 Therefore, the FAT flow feature enables to reduce the flow tuple. 
 
