@@ -8,7 +8,7 @@ _Screenshots are in PNG format, so a bit heavy and therefore taking some time to
 Table of Contents
 =================
 
-   * [Networking](#networking)
+    * [Networking](#networking)
       * [Load-balancing (TBC)](#load-balancing-tbc)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
          * [Network Policy(s)](#network-policys)
@@ -67,7 +67,6 @@ Table of Contents
             * [Allowed address pair(s)](#allowed-address-pairs)
             * [ECMP Hashing Fields](#ecmp-hashing-fields-1)
             * [Device Owner](#device-owner)
-            * [Compute UUID](#compute-uuid)
             * [Security Logging Object(s)](#security-logging-objects-1)
             * [Port Binding(s)](#port-bindings)
             * [Packet Mode](#packet-mode)
@@ -91,6 +90,7 @@ Table of Contents
          * [Route Aggregates](#route-aggregates)
       * [QoS (TBC)](#qos-tbc)
       * [SLO (TBC)](#slo-tbc)
+
 
 # Networking
 
@@ -764,9 +764,7 @@ It is similar as in a VN, and described here [ECMP Hashing Fields](#ecmp-hashing
 
 It specifies if the port is attached to a compute or to a router.
 
-When a VM is created by OpenStack or a port is attached to a VM, it will automatically set it as compute and mapped to the relevant compute UUID. 
-
-TBC - clarify meaning and usage of Router
+When a VM is created by OpenStack or a port is attached to a VM, it will automatically set it as compute and mapped to the relevant compute UUID. So no reaaly need to care abaout.
 
 ![Screenshot](img/ports/Port-Device1.png) 
 
@@ -825,6 +823,20 @@ Below we can notice via Introspect that the VMI has policy as disabled.
 #### Mirroring
 
 ### DHCP Option(s)
+
+This allows to pass parameters via DHCP options. 
+
+To illustrate the feature, we will pass the domain-name to vSRX_5.
+
+Below we have vSRX_5 current DHCP options set.
+
+![Screenshot](img/ports/Port-DHCP1.png) 
+
+Below  we specify the domain-name in the port and we noctice the result on vSRX_5.
+
+![Screenshot](img/ports/Port-DHCP2.png) 
+
+![Screenshot](img/ports/Port-DHCP3.png) 
 
 ### Fat Flow(s)
 
