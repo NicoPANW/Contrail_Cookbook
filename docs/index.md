@@ -8,7 +8,7 @@ _Screenshots are in PNG format, so a bit heavy and therefore taking some time to
 Table of Contents
 =================
 
-    * [Networking](#networking)
+   * [Networking](#networking)
       * [Load-balancing (TBC)](#load-balancing-tbc)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
          * [Network Policy(s)](#network-policys)
