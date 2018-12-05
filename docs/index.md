@@ -733,10 +733,21 @@ It allows to create a "static" route _without a next-hop_ since tied to a port (
 
 #### Service Health Check
 
+TBC
+
 #### QoS
+
+TBC
 
 #### Allowed address pair(s)
 
+"Allowed address pair" allows to sepcify an additional new IP@ and mac@ bindings for a given port.
+
+There are mainly two use cases:
+* a way to specify an unkown IP@ / mac@, this is described here [Forwarding Mode](#forwarding-mode)
+* VRRP (or loopback), decribed below
+
+TBC
 
 
 #### ECMP Hashing Fields
@@ -751,7 +762,17 @@ It is similar as in a VN, and described here [ECMP Hashing Fields](#ecmp-hashing
 
 #### Device Owner
 
-#### Compute UUID
+It specifies if the port is attached to a compute or to a router.
+
+When a VM is created by OpenStack or a port is attached to a VM, it will automatically set it as compute and mapped to the relevant compute UUID. 
+
+TBC - clarify meaning and usage of Router
+
+![Screenshot](img/ports/Port-Device1.png) 
+
+![Screenshot](img/ports/Port-Device2.png) 
+
+![Screenshot](img/ports/Port-Device3.png) 
 
 #### Security Logging Object(s)
 
@@ -763,6 +784,15 @@ It is defined in Global Config and can be applied on a per VMI basis as below.
 
 #### Port Binding(s)
 
+It allows to bind a port to the VM. It is either a "normal" vnic or SR-IOV.
+
+SR-IOV is described here [Provider Network](#provider-network)
+
+Below shows the auto-mapping of a port to a VM. 
+
+![Screenshot](img/ports/Port-binding.png) 
+
+
 #### Packet Mode
 
 By default, it is not ticked. Indeed, Contrail vRouter is based on flow processing. 
@@ -772,17 +802,17 @@ If it is ticked, it will turn the port in packet mode.
 This mode is usually required whenever having high scale of flows and where the flow setup rate is important metric. Hence, being in Packet mode, the flow no longer exists and therefore no any limitations.
 
 However, the following fetaures will not work anymore:
-- less analytics since no flows
-- No ACL match in network policy (from protocol TCP, port = ssh then…)
- - Only routing leaking is processed, while ACL is not
- - No network policy steering
- - No network policy mirroring 
-- No Security Groups (implemented via flows) and generally speaking no security features
-- Service Chaining relies on flows: no service chains except for single SI (possibly with scaled out)
-- Flow Symetrization 
-- FIP 
-- SNAT
-- RPF checks
+* less analytics since no flows
+* No ACL match in network policy (from protocol TCP, port = ssh then…)
+ * Only routing leaking is processed, while ACL is not
+ * No network policy steering
+ * No network policy mirroring 
+* No Security Groups (implemented via flows) and generally speaking no security features
+* Service Chaining relies on flows: no service chains except for single SI (possibly with scaled out)
+* Flow Symetrization 
+* FIP 
+* SNAT
+* RPF checks
 
 Below we set the packet mode for the vSRX_5 VMI. 
 
