@@ -802,9 +802,9 @@ This mode is usually required whenever having high scale of flows and where the 
 However, the following fetaures will not work anymore:
 * less analytics since no flows
 * No ACL match in network policy (from protocol TCP, port = ssh then…)
- * Only routing leaking is processed, while ACL is not
- * No network policy steering
- * No network policy mirroring 
+  * Only routing leaking is processed, while ACL is not
+  * No network policy steering
+  * No network policy mirroring 
 * No Security Groups (implemented via flows) and generally speaking no security features
 * Service Chaining relies on flows: no service chains except for single SI (possibly with scaled out)
 * Flow Symetrization 
