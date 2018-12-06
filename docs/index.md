@@ -449,7 +449,50 @@ It is relevant only if Device-Manager is used. In such a case, if it is enabled,
 
 #### SNAT
 
-TBC
+SNAT allows to do source NAT from a given VN to another VN (usually with Public IPs). So it means that all VMs inside a VN having private addresses, via SNAT can easily connect to Internet for instance. 
+
+To demonstrate the feature, we will show the workflow for configuring it. The goal is to enable SNAT for Red_VN that will go to a new VN with public IP@ for natting. We will then establish ssh connexion from vSRX_3 being in Red_VN to vSRX_6 being in blue_VN (note that there is no policy between Red_VN and Blue_VN).
+
+Below we first tick the SNAT on Red_VN.
+
+![Screenshot](img/virtual_networks/VR-SNAT0.png)
+
+Below we then create a new IPAM for hosting Puplic IP@.
+
+![Screenshot](img/virtual_networks/VR-SNAT1.png)
+
+Below we then create a new VN with previous IPAM and with a public subnet. We also need to tick the external checkbox. 
+
+![Screenshot](img/virtual_networks/VR-SNAT2.png)
+
+![Screenshot](img/virtual_networks/VR-SNAT3.png)
+
+Below we then create in Routers a GW associated to the new VN and connected to the Red_VN.
+
+![Screenshot](img/virtual_networks/VR-SNAT4.png)
+
+Below in Red_VN we can notice that a default static route has been added.
+
+![Screenshot](img/virtual_networks/VR-SNAT5.png)
+
+Below we can notice that the default route has been copied from a newly auto created VN with long UUID.
+
+![Screenshot](img/virtual_networks/VR-SNAT5b.png)
+
+Below we can see this newly auto created VN with long UUID. It includes the default route that it belongs too as well as a copy of all Red_VN routes.
+
+![Screenshot](img/virtual_networks/VR-SNAT5c.png)
+
+Below we issue a ssh from vSRX_3 10.0.0.3 to vSRX_6 31.0.0.5. We can notice that on vSRX_6 captures, we only see the 55.0.0.3 address which is the NAT address. 
+
+![Screenshot](img/virtual_networks/VR-SNAT6.png)
+
+![Screenshot](img/virtual_networks/VR-SNAT7.png)
+
+Below is similar as before, but we issue a ssh from vSRX_3 10.0.0.3 to vSRX_6 31.0.0.5 and we issue a ssh from vSRX_5 10.0.0.5 to vSRX_6 31.0.0.5. We can notice that on vSRX_6 captures, we only see the 55.0.0.3 address with different ports for each ssh session. 
+
+![Screenshot](img/virtual_networks/VR-SNAT8.png)
+
 
 #### Mirroring
 
@@ -597,14 +640,14 @@ _Routing Policy are further described in relevant section._
 
 ### Fat flows
 
-By default, vRouter operates in flow with 5 tuples. Because of 5 tuples, it can generate too much flows and affect performance for call set rate and flow table size. 
+By default, vRouter operates in flow with 5 tuples. Because of 5 tuples, it can generate too much flows and affect performance for call setup rate and flow table size. 
 
 Therefore, the FAT flow feature enables to reduce the flow tuple. 
 
 To illustrate the feature, we below send
-- from vSRX_3 ssh 31.0.0.5 port 22 VM
-- from vSRX_5 ssh 31.0.0.5 port 22 VM
-- from vSRX_5 ssh 31.0.0.5 port 443 VM
+- from vSRX_3 10.0.0.3 ssh 31.0.0.5 port 22 VM
+- from vSRX_5 10.0.0.5 ssh 31.0.0.5 port 22 VM
+- from vSRX_5 10.0.0.5 ssh 31.0.0.5 port 443 VM
 
 Below it shows the default behaviour. We see 6 flows are created (3 out and 3 reverse). Note that two flows are because of a local ssh between the 31.0.0.5 and the vRouter, this shall be ignored here. 
 
@@ -867,14 +910,14 @@ Below  we specify the domain-name in the port and we noctice the result on vSRX_
 
 ### Fat Flow(s)
 
-By default, vRouter operates in flow with 5 tuples. Because of 5 tuples, it can generate too much flows and affect performance for call set rate and flow table size. 
+By default, vRouter operates in flow with 5 tuples. Because of 5 tuples, it can generate too much flows and affect performance for call setup rate and flow table size. 
 
 Therefore, the FAT flow feature enables to reduce the flow tuple. 
 
 To illustrate the feature, we below send
-- from vSRX_3 ssh 31.0.0.5 port 22 VM
-- from vSRX_5 ssh 31.0.0.5 port 22 VM
-- from vSRX_5 ssh 31.0.0.5 port 443 VM
+- from vSRX_3 10.0.0.3 ssh 31.0.0.5 port 22 VM
+- from vSRX_5 10.0.0.5 ssh 31.0.0.5 port 22 VM
+- from vSRX_5 10.0.0.5 ssh 31.0.0.5 port 443 VM
 
 Below it shows the default behaviour. We see 6 flows are created (3 out and 3 reverse). Note that two flows are because of a local ssh between the 31.0.0.5 and the vRouter, this shall be ignored here. 
 
