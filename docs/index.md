@@ -489,6 +489,12 @@ Below we issue a ssh from vSRX_3 10.0.0.3 to vSRX_6 31.0.0.5. We can notice that
 
 ![Screenshot](img/virtual_networks/VR-SNAT7.png)
 
+Below we can also check on both vRouter hosting vSRX_3 (compute 7) and vSRX_6 (compute 2), we notice the NAT.
+
+![Screenshot](img/virtual_networks/VR-SNAT7b.png)
+
+![Screenshot](img/virtual_networks/VR-SNAT7c.png)
+
 Below is similar as before, but we issue a ssh from vSRX_3 10.0.0.3 to vSRX_6 31.0.0.5 and we issue a ssh from vSRX_5 10.0.0.5 to vSRX_6 31.0.0.5. We can notice that on vSRX_6 captures, we only see the 55.0.0.3 address with different ports for each ssh session. 
 
 ![Screenshot](img/virtual_networks/VR-SNAT8.png)
