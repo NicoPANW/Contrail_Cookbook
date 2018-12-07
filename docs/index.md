@@ -444,17 +444,40 @@ It is relevant only if Device-Manager is used. In such a case, if it is enabled,
 
 #### External
 
-It is relevant only if Device-Manager is used. In such a case, if it is enabled, it pushes Junos config to MX with adding a default route to make it "public". 
+It is relevant for SNAT, see here [Routers (SNAT)](#routers-snat)
 
 ![Screenshot](img/virtual_networks/VR-external.png)
 
 #### SNAT (distributed)
 
-Distributed SNAT feature allows virtual machines to reach IP fabric network using existing forwarding infrastructure present for compute node connectivity.
+Distributed SNAT feature allows virtual machines to reach IP fabric network using existing forwarding infrastructure present for compute node connectivity. This functionality is achieved through port address translation of virtual machine traffic using the IP address of the compute node (hence distributed) as the public address.
 
 _Note SNAT is also possible in a different fashion (centralised) described here [Routers (SNAT)](#routers-snat)_ 
 
 Distrubuted SNAT is further detailed here https://github.com/Juniper/contrail-specs/blob/master/distributed-snat.md 
+
+To illustrate the feature, we will ssh from vSRX_3 10.0.0.3 hosted on compute 192.168.100.167 to compute 192.168.100.168.
+
+Below we first need to assign a SNAT pool range.
+
+![Screenshot](img/virtual_networks/VR-Distributed-SNAT1.png)
+
+Below we then turned on the SNAT for Red_VN.
+
+![Screenshot](img/virtual_networks/VR-Distributed-SNAT2.png)
+
+Below it shows via Introspect that vSRX_3 VMI is having now a new FIP allocated in Fabric VRF.
+
+![Screenshot](img/virtual_networks/VR-Distributed-SNAT3.png)
+
+We issue a ping from vSRX_3, and on compute 7 we notice the flow with port 51500 being used (first port we defined in Global parameters before). The returning flows show that NAT occured.
+
+![Screenshot](img/virtual_networks/VR-Distributed-SNAT4.png)
+
+Below on compute 8, we obviously notice vSRX3 10.0.0.3 was nated to 192.168.100.167:51500.
+
+![Screenshot](img/virtual_networks/VR-Distributed-SNAT5.png)
+
 
 #### Mirroring
 
