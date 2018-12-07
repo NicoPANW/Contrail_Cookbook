@@ -449,56 +449,7 @@ It is relevant only if Device-Manager is used. In such a case, if it is enabled,
 
 #### SNAT
 
-SNAT allows to do source NAT from a given VN to another VN (usually with Public IPs). So it means that all VMs inside a VN having private addresses, via SNAT can easily connect to Internet for instance. 
-
-To demonstrate the feature, we will show the workflow for configuring it. The goal is to enable SNAT for Red_VN that will go to a new VN with public IP@ for natting. We will then establish ssh connexion from vSRX_3 being in Red_VN to vSRX_6 being in blue_VN (note that there is no policy between Red_VN and Blue_VN).
-
-Below we first tick the SNAT on Red_VN.
-
-![Screenshot](img/virtual_networks/VR-SNAT0.png)
-
-Below we then create a new IPAM for hosting Puplic IP@.
-
-![Screenshot](img/virtual_networks/VR-SNAT1.png)
-
-Below we then create a new VN with previous IPAM and with a public subnet. We also need to tick the external checkbox. 
-
-![Screenshot](img/virtual_networks/VR-SNAT2.png)
-
-![Screenshot](img/virtual_networks/VR-SNAT3.png)
-
-Below we then create in Routers a GW associated to the new VN and connected to the Red_VN.
-
-![Screenshot](img/virtual_networks/VR-SNAT4.png)
-
-Below in Red_VN we can notice that a default static route has been added.
-
-![Screenshot](img/virtual_networks/VR-SNAT5.png)
-
-Below we can notice that the default route has been copied from a newly auto created VN with long UUID.
-
-![Screenshot](img/virtual_networks/VR-SNAT5b.png)
-
-Below we can see this newly auto created VN with long UUID. It includes the default route that it belongs too as well as a copy of all Red_VN routes.
-
-![Screenshot](img/virtual_networks/VR-SNAT5c.png)
-
-Below we issue a ssh from vSRX_3 10.0.0.3 to vSRX_6 31.0.0.5. We can notice that on vSRX_6 captures, we only see the 55.0.0.3 address which is the NAT address. 
-
-![Screenshot](img/virtual_networks/VR-SNAT6.png)
-
-![Screenshot](img/virtual_networks/VR-SNAT7.png)
-
-Below we can also check on both vRouter hosting vSRX_3 (compute 7) and vSRX_6 (compute 2), we notice the NAT.
-
-![Screenshot](img/virtual_networks/VR-SNAT7b.png)
-
-![Screenshot](img/virtual_networks/VR-SNAT7c.png)
-
-Below is similar as before, but we issue a ssh from vSRX_3 10.0.0.3 to vSRX_6 31.0.0.5 and we issue a ssh from vSRX_5 10.0.0.5 to vSRX_6 31.0.0.5. We can notice that on vSRX_6 captures, we only see the 55.0.0.3 address with different ports for each ssh session. 
-
-![Screenshot](img/virtual_networks/VR-SNAT8.png)
-
+TBC
 
 #### Mirroring
 
@@ -954,9 +905,66 @@ TBC
 
 Security Groups are explained in ports section, since applied to ports, here [Security Group(s)](#security-groups)
 
-## Routers (TBC)
+## Routers (SNAT)
 
-TBC
+Routers is used for multiple purpose among the SNAT. We describe below the SNAT.
+
+SNAT allows to do source NAT from a given VN to another VN (usually with Public IPs). So it means that all VMs inside a VN having private addresses, via SNAT can easily connect to Internet for instance. 
+
+The service scheduler in Contrail instantiates the gateway on a randomly-selected virtual router. Contrail uses network namespace to support this feature.
+
+To demonstrate the feature, we will show the workflow for configuring it. The goal is to enable SNAT for Red_VN that will go to a new VN with public IP@ for natting. We will then establish ssh connexion from vSRX_3 being in Red_VN to vSRX_6 being in blue_VN (note that there is no policy between Red_VN and Blue_VN).
+
+Below we create a new IPAM for hosting Puplic IP@.
+
+![Screenshot](img/virtual_networks/VR-SNAT1.png)
+
+Below we then create a new VN with previous IPAM and with a public subnet. We also need to tick the external checkbox. 
+
+![Screenshot](img/virtual_networks/VR-SNAT2.png)
+
+![Screenshot](img/virtual_networks/VR-SNAT3.png)
+
+Below we then create in Routers a GW associated to the new VN and connected to the Red_VN.
+
+![Screenshot](img/virtual_networks/VR-SNAT4.png)
+
+Below in Red_VN we can notice that a default static route has been added.
+
+![Screenshot](img/virtual_networks/VR-SNAT5.png)
+
+Below we can notice that the default route has been copied from a newly auto created VN with long UUID.
+
+![Screenshot](img/virtual_networks/VR-SNAT5b.png)
+
+Below we can see this newly auto created VN with long UUID. It includes the default route that it belongs too as well as a copy of all Red_VN routes.
+
+![Screenshot](img/virtual_networks/VR-SNAT5c.png)
+
+Below we issue a ssh from vSRX_3 10.0.0.3 to vSRX_6 31.0.0.5. We can notice that on vSRX_6 captures, we only see the 55.0.0.3 address which is the NAT address. 
+
+![Screenshot](img/virtual_networks/VR-SNAT6.png)
+
+![Screenshot](img/virtual_networks/VR-SNAT7.png)
+
+Below we can also check on both vRouter hosting vSRX_3 (compute 7) and vSRX_6 (compute 2), we notice the NAT.
+
+![Screenshot](img/virtual_networks/VR-SNAT7b.png)
+
+![Screenshot](img/virtual_networks/VR-SNAT7c.png)
+
+Below is similar as before, but we issue a ssh from vSRX_3 10.0.0.3 to vSRX_6 31.0.0.5 and we issue a ssh from vSRX_5 10.0.0.5 to vSRX_6 31.0.0.5. We can notice that on vSRX_6 captures, we only see the 55.0.0.3 address with different ports for each ssh session. 
+
+![Screenshot](img/virtual_networks/VR-SNAT8.png)
+
+Below we can notice that Contrail automatically created an SI and associated leak VN.
+
+![Screenshot](img/virtual_networks/VR-SNAT9.png)
+
+![Screenshot](img/virtual_networks/VR-SNAT10.png)
+
+
+
 
 ## IP Address Management (TBC)
 
