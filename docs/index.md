@@ -70,12 +70,12 @@ Table of Contents
             * [Security Logging Object(s)](#security-logging-objects-1)
             * [Port Binding(s)](#port-bindings)
             * [Packet Mode](#packet-mode)
-            * [Mirroring](#mirroring-1)
+            * [Mirroring (TBC)](#mirroring-tbc)
          * [DHCP Option(s)](#dhcp-options)
          * [Fat Flow(s)](#fat-flows-1)
       * [Policies (TBC)](#policies-tbc)
       * [Security Groups](#security-groups-1)
-      * [Routers (TBC)](#routers-tbc)
+      * [Routers (SNAT)](#routers-snat)
       * [IP Address Management (TBC)](#ip-address-management-tbc)
       * [Floating IP Pools](#floating-ip-pools)
       * [Floating IPs](#floating-ips-1)
@@ -90,6 +90,7 @@ Table of Contents
          * [Route Aggregates](#route-aggregates)
       * [QoS (TBC)](#qos-tbc)
       * [SLO (TBC)](#slo-tbc)
+
 
 
 # Networking
@@ -447,9 +448,13 @@ It is relevant only if Device-Manager is used. In such a case, if it is enabled,
 
 ![Screenshot](img/virtual_networks/VR-external.png)
 
-#### SNAT
+#### SNAT (distributed)
 
-TBC
+Distributed SNAT feature allows virtual machines to reach IP fabric network using existing forwarding infrastructure present for compute node connectivity.
+
+_Note SNAT is also possible in a different fashion (centralised) described here [Routers (SNAT)](#routers-snat)_ 
+
+Distrubuted SNAT is further detailed here https://github.com/Juniper/contrail-specs/blob/master/distributed-snat.md 
 
 #### Mirroring
 
@@ -911,7 +916,7 @@ Routers is used for multiple purpose among the SNAT. We describe below the SNAT.
 
 SNAT allows to do source NAT from a given VN to another VN (usually with Public IPs). So it means that all VMs inside a VN having private addresses, via SNAT can easily connect to Internet for instance. 
 
-The service scheduler in Contrail instantiates the gateway on a randomly-selected virtual router. Contrail uses network namespace to support this feature.
+The service scheduler in Contrail instantiates the SNAT gateway on a randomly-selected virtual router. Contrail uses Linux network namespace to support this feature.
 
 To demonstrate the feature, we will show the workflow for configuring it. The goal is to enable SNAT for Red_VN that will go to a new VN with public IP@ for natting. We will then establish ssh connexion from vSRX_3 being in Red_VN to vSRX_6 being in blue_VN (note that there is no policy between Red_VN and Blue_VN).
 
