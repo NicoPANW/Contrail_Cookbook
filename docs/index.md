@@ -8,6 +8,7 @@ _Screenshots are in PNG format, so a bit heavy and therefore taking some time to
 Table of Contents
 =================
 
+
    * [Networking](#networking)
       * [Load-balancing (TBC)](#load-balancing-tbc)
       * [Networks (Virtual Networks)](#networks-virtual-networks)
@@ -33,7 +34,7 @@ Table of Contents
             * [Allow transit](#allow-transit)
             * [Extend to Physical Router(s)](#extend-to-physical-routers)
             * [External](#external)
-            * [SNAT](#snat)
+            * [SNAT (distributed)](#snat-distributed)
             * [Mirroring](#mirroring)
             * [Multiple Service Chains](#multiple-service-chains)
             * [Static Route(s)](#static-routes)
